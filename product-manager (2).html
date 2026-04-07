@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ProPM — Product Management System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --sidebar-w:240px; --blue:#2563EB; --blue-l:#3B82F6; --blue-f:#EFF6FF;
+      --bg:#F8FAFC; --card:#FFFFFF; --border:#E2E8F0;
+      --t1:#0F172A; --t2:#64748B; --t3:#94A3B8;
+      --green:#10B981; --amber:#F59E0B; --red:#EF4444; --purple:#8B5CF6;
+      --fm:'Sora',sans-serif; --mono:'JetBrains Mono',monospace;
+      --sh:0 1px 3px rgba(0,0,0,.06); --shl:0 12px 28px rgba(0,0,0,.1);
+      --r:12px; --rs:8px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--fm);background:var(--bg);color:var(--t1);min-height:100vh;display:flex}
+
+    /* ── SIDEBAR ── */
+    #sidebar{width:var(--sidebar-w);min-height:100vh;background:#0F172A;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:100}
+    .sb-logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:10px}
+    .sb-logo-icon{width:34px;height:34px;background:var(--blue);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+    .sb-logo-txt{font-weight:700;font-size:15px;color:#fff;letter-spacing:-.3px}
+    .sb-section{font-size:10px;font-weight:600;letter-spacing:1.2px;color:#475569;text-transform:uppercase;padding:16px 16px 6px}
+    .sb-item{display:flex;align-items:center;gap:10px;padding:9px 16px;border-radius:8px;margin:2px 8px;cursor:pointer;font-size:13.5px;font-weight:500;color:#94A3B8;transition:background .15s,color .15s;user-select:none;overflow:hidden;white-space:nowrap}
+    .sb-item:hover{background:rgba(255,255,255,.05);color:#E2E8F0}
+    .sb-item.active{background:rgba(37,99,235,.18);color:#93C5FD}
+    .sb-item .ico{font-size:15px;flex-shrink:0}
+    .sb-footer{margin-top:auto;padding:12px 8px;border-top:1px solid rgba(255,255,255,.06)}
+
+    /* ── MAIN ── */
+    #main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column}
+    #topbar{background:var(--card);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:50}
+    .tb-title{font-size:17px;font-weight:600}
+    .tb-sub{font-size:12px;color:var(--t3);margin-top:1px}
+    .hbadge{display:flex;align-items:center;gap:8px;background:var(--blue-f);border:1px solid #BFDBFE;border-radius:20px;padding:5px 14px;font-size:13px;font-weight:600;color:var(--blue)}
+    .hdot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.2)}}
+    #page{flex:1;padding:28px;overflow-y:auto}
+
+    /* ── TABS ── */
+    .tab-bar{display:flex;gap:4px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:4px;margin-bottom:24px;width:fit-content}
+    .tab-btn{padding:8px 18px;font-size:13.5px;font-weight:500;border-radius:9px;cursor:pointer;color:var(--t2);border:none;background:transparent;transition:all .15s;white-space:nowrap;font-family:var(--fm)}
+    .tab-btn:hover{color:var(--t1);background:var(--bg)}
+    .tab-btn.active{background:var(--blue);color:#fff}
+
+    /* ── CARDS ── */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;box-shadow:var(--sh)}
+    .card-title{font-size:13px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+
+    /* ── KPI CARDS ── */
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;margin-bottom:24px}
+    .kc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;position:relative;overflow:hidden}
+    .kc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+    .kc.blue::before{background:var(--blue)}.kc.green::before{background:var(--green)}.kc.amber::before{background:var(--amber)}.kc.purple::before{background:var(--purple)}.kc.red::before{background:var(--red)}
+    .kc-lbl{font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px}
+    .kc-val{font-size:22px;font-weight:700;color:var(--t1);font-family:var(--mono);letter-spacing:-.5px}
+    .kc-sub{font-size:11.5px;color:var(--t3);margin-top:4px}
+
+    /* ── CHARTS ── */
+    .charts-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:20px}
+    .cw{overflow-x:auto}.ci{min-width:300px;position:relative}
+
+    /* ── FILTER BAR ── */
+    .filter-bar{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+    .filter-bar label{font-size:12px;font-weight:600;color:var(--t2);white-space:nowrap}
+    /* Multi-select dropdown */
+    .ms-wrap{position:relative;display:inline-block}
+    .ms-trigger{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);cursor:pointer;font-size:13px;font-weight:500;color:var(--t1);min-width:160px;user-select:none;font-family:var(--fm)}
+    .ms-trigger:hover{border-color:var(--blue-l)}
+    .ms-trigger .ms-arrow{margin-left:auto;font-size:10px;color:var(--t3);transition:transform .15s}
+    .ms-trigger.open .ms-arrow{transform:rotate(180deg)}
+    .ms-dropdown{display:none;position:absolute;top:calc(100% + 4px);left:0;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);box-shadow:var(--shl);z-index:200;min-width:200px;max-height:260px;overflow-y:auto;padding:6px}
+    .ms-dropdown.open{display:block}
+    .ms-option{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--t1);font-family:var(--fm);transition:background .1s}
+    .ms-option:hover{background:var(--bg)}
+    .ms-option input[type=checkbox]{width:14px;height:14px;accent-color:var(--blue);flex-shrink:0;cursor:pointer}
+    .ms-divider{height:1px;background:var(--border);margin:4px 0}
+    .ms-action{display:flex;gap:6px;padding:6px 4px 2px}
+    .ms-action button{flex:1;padding:5px 0;border:none;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--fm)}
+    .ms-action .sel-all{background:var(--blue-f);color:var(--blue)}
+    .ms-action .clr-all{background:#FEE2E2;color:var(--red)}
+    .filter-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:var(--blue-f);border:1px solid #BFDBFE;border-radius:20px;font-size:12px;font-weight:600;color:var(--blue)}
+
+    /* ── TABLES ── */
+    .tw{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:13.5px}
+    thead th{background:var(--bg);padding:10px 14px;text-align:left;font-size:10.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid var(--border);white-space:nowrap}
+    tbody td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--t1);vertical-align:middle}
+    tbody tr:last-child td{border-bottom:none}
+    tbody tr:hover td{background:#F8FAFC}
+
+    /* ── BADGES ── */
+    .badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:600;white-space:nowrap}
+    .badge-high{background:#FEE2E2;color:#B91C1C}.badge-medium{background:#FEF3C7;color:#92400E}.badge-low{background:#DCFCE7;color:#166534}
+    .badge-planned{background:#EFF6FF;color:#1D4ED8}.badge-active{background:#ECFDF5;color:#065F46}.badge-done{background:#F3F4F6;color:#374151}
+    .badge-open{background:#FEF3C7;color:#92400E}.badge-closed{background:#DCFCE7;color:#166534}.badge-inprogress{background:#EFF6FF;color:#1D4ED8}
+
+    /* ── BUTTONS ── */
+    .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--rs);font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:var(--fm);transition:all .15s}
+    .btn-p{background:var(--blue);color:#fff}.btn-p:hover{background:#1D4ED8}
+    .btn-g{background:transparent;color:var(--t2);border:1px solid var(--border)}.btn-g:hover{background:var(--bg)}
+    .btn-d{background:#FEE2E2;color:var(--red)}.btn-d:hover{background:#FECACA}
+    .btn-sm{padding:5px 10px;font-size:12px}
+
+    /* ── FORMS ── */
+    .fg{margin-bottom:13px}
+    .fl{display:block;font-size:12px;font-weight:600;color:var(--t2);margin-bottom:5px}
+    .fi,.fs,.fta{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--rs);font-size:13.5px;font-family:var(--fm);color:var(--t1);background:var(--card);outline:none;transition:border .15s}
+    .fi:focus,.fs:focus,.fta:focus{border-color:var(--blue-l);box-shadow:0 0 0 3px rgba(59,130,246,.12)}
+    .fta{resize:vertical;min-height:72px}
+
+    /* ── MONTHLY KPI TABLE inside modal ── */
+    .mk-table{width:100%;border-collapse:collapse;font-size:13px}
+    .mk-table th{background:var(--bg);padding:8px 10px;text-align:left;font-size:10.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.6px;border-bottom:1px solid var(--border);white-space:nowrap}
+    .mk-table td{padding:6px 6px;border-bottom:1px solid var(--border);vertical-align:middle}
+    .mk-table tr:last-child td{border-bottom:none}
+    .mk-table .mi{width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:var(--fm);color:var(--t1);background:var(--card);outline:none}
+    .mk-table .mi:focus{border-color:var(--blue-l)}
+    .mk-table .month-lbl{font-weight:600;font-size:12px;color:var(--t2);white-space:nowrap;padding-right:8px}
+    .mk-year-tab{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600;border:1px solid var(--border);background:var(--bg);color:var(--t2);font-family:var(--fm);transition:all .15s}
+    .mk-year-tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+    .mk-year-tab:hover:not(.active){border-color:var(--blue-l);color:var(--t1)}
+
+    /* ── MODAL ── */
+    .mo{display:none;position:fixed;inset:0;background:rgba(15,23,42,.45);backdrop-filter:blur(3px);z-index:999;align-items:center;justify-content:center}
+    .mo.open{display:flex}
+    .mb{background:var(--card);border-radius:var(--r);box-shadow:var(--shl);width:100%;max-width:900px;padding:26px;animation:su .2s ease;max-height:92vh;overflow-y:auto}
+    .mb-sm{max-width:520px}
+    @keyframes su{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .m-title{font-size:17px;font-weight:700;margin-bottom:18px}
+
+    /* ── HEALTH RING ── */
+    .hr-wrap{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;padding:10px}
+
+    /* ── TOAST ── */
+    #toast{position:fixed;bottom:24px;right:24px;background:#0F172A;color:#fff;padding:12px 20px;border-radius:var(--rs);font-size:13.5px;font-weight:500;z-index:9999;transform:translateY(60px);opacity:0;transition:all .25s ease;pointer-events:none}
+    #toast.show{transform:translateY(0);opacity:1}
+
+    /* ── MATRIX ── */
+    .mx-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .mx-cell{border-radius:var(--rs);padding:14px;min-height:100px}
+    .mx-cell.q1{background:#FEF3C7;border:1.5px dashed #F59E0B}.mx-cell.q2{background:#FEE2E2;border:1.5px dashed #EF4444}
+    .mx-cell.q3{background:#F3F4F6;border:1.5px dashed #D1D5DB}.mx-cell.q4{background:#DCFCE7;border:1.5px dashed #10B981}
+    .mx-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+
+    /* ── EMPTY STATE ── */
+    .es{text-align:center;padding:40px 24px;color:var(--t3)}
+    .es-ico{font-size:34px;margin-bottom:10px;opacity:.5}
+    .es-txt{font-size:14px;font-weight:500}
+    .es-sub{font-size:12.5px;margin-top:4px}
+
+    /* ── SETTINGS ── */
+    .pl-item{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border:1px solid var(--border);border-radius:var(--rs);margin-bottom:10px;background:var(--card)}
+
+    /* ── LOADING ── */
+    #app-loading{position:fixed;inset:0;background:#0F172A;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .4s}
+    .spin{width:40px;height:40px;border:3px solid rgba(255,255,255,.1);border-top-color:#3B82F6;border-radius:50%;animation:spinning .8s linear infinite;margin-bottom:16px}
+    @keyframes spinning{to{transform:rotate(360deg)}}
+
+    ::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:3px}
+
+    @media(max-width:768px){
+      #sidebar{width:56px}.sb-logo-txt,.sb-section,.sb-item span{display:none}
+      #main{margin-left:56px}.charts-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="app-loading">
+  <div class="spin"></div>
+  <div style="color:#94A3B8;font-family:'Sora',sans-serif;font-size:14px;">Connecting to database…</div>
+</div>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="sb-logo">
+    <div class="sb-logo-icon">📊</div>
+    <span class="sb-logo-txt">ProPM</span>
+  </div>
+  <div class="sb-section">Products</div>
+  <div id="products-nav">
+    <div class="sb-item" style="color:#475569;font-size:12px;cursor:default;"><span class="ico">⏳</span><span>Loading…</span></div>
+  </div>
+  <div class="sb-footer">
+    <div class="sb-item" id="settings-nav-btn" onclick="navigateToSettings()">
+      <span class="ico">⚙️</span><span>Settings</span>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div id="main">
+  <header id="topbar">
+    <div>
+      <div class="tb-title" id="topbar-product-name">Select a Product</div>
+      <div class="tb-sub" id="topbar-subtitle">Product Management System</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="hbadge" id="health-badge" style="display:none;">
+        <div class="hdot"></div>
+        <span id="health-score-display">Health: —</span>
+      </div>
+      <div style="font-size:12px;color:var(--t3);font-family:var(--mono);" id="current-date"></div>
+    </div>
+  </header>
+
+  <div id="page">
+
+    <!-- WELCOME -->
+    <div id="welcome-screen">
+      <div style="max-width:460px;margin:80px auto;text-align:center;">
+        <div style="font-size:52px;margin-bottom:16px;">📊</div>
+        <h2 style="font-size:22px;font-weight:700;margin-bottom:8px;">Welcome to ProPM</h2>
+        <p style="color:var(--t3);font-size:14px;line-height:1.6;margin-bottom:24px;">Select a product from the sidebar,<br>or go to Settings to add your first product.</p>
+        <button class="btn btn-p" onclick="navigateToSettings()">⚙️ &nbsp;Manage Products</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT DASHBOARD -->
+    <div id="product-dashboard" style="display:none;">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('overview',this)">📈 Overview</button>
+        <button class="tab-btn" onclick="switchTab('roadmap',this)">🗺️ Strategy &amp; Roadmap</button>
+        <button class="tab-btn" onclick="switchTab('issues',this)">🐛 Issues &amp; Feedback</button>
+        <button class="tab-btn" onclick="switchTab('matrix',this)">🎯 Priority Matrix</button>
+      </div>
+
+      <!-- ── OVERVIEW ── -->
+      <div id="tab-overview">
+        <!-- FILTER BAR -->
+        <div class="filter-bar">
+          <label>Filter by:</label>
+
+          <!-- Year multi-select -->
+          <div class="ms-wrap" id="year-wrap">
+            <div class="ms-trigger" id="year-trigger" onclick="toggleMs('year')">
+              <span id="year-label">All Years</span>
+              <span class="ms-arrow">▼</span>
+            </div>
+            <div class="ms-dropdown" id="year-dropdown">
+              <div class="ms-action">
+                <button class="sel-all" onclick="msSelectAll('year')">All</button>
+                <button class="clr-all" onclick="msClearAll('year')">Clear</button>
+              </div>
+              <div class="ms-divider"></div>
+              <div id="year-options"></div>
+            </div>
+          </div>
+
+          <!-- Month multi-select -->
+          <div class="ms-wrap" id="month-wrap">
+            <div class="ms-trigger" id="month-trigger" onclick="toggleMs('month')">
+              <span id="month-label">All Months</span>
+              <span class="ms-arrow">▼</span>
+            </div>
+            <div class="ms-dropdown" id="month-dropdown">
+              <div class="ms-action">
+                <button class="sel-all" onclick="msSelectAll('month')">All</button>
+                <button class="clr-all" onclick="msClearAll('month')">Clear</button>
+              </div>
+              <div class="ms-divider"></div>
+              <div id="month-options"></div>
+            </div>
+          </div>
+
+          <div id="filter-chips" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+          <button class="btn btn-g btn-sm" onclick="openKpiModal()" style="margin-left:auto;">📅 Edit Monthly Data</button>
+        </div>
+
+        <div class="kpi-grid" id="kpi-grid"></div>
+
+        <div class="charts-grid">
+          <div class="card">
+            <div class="card-title">Monthly Revenue &amp; CAC</div>
+            <div class="cw"><div class="ci" style="height:240px;"><canvas id="revenueChart"></canvas></div></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Product Health Score</div>
+            <div class="hr-wrap">
+              <canvas id="healthChart" width="160" height="160"></canvas>
+              <div style="font-size:13px;color:var(--t2);text-align:center;margin-top:4px;" id="health-explanation"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="card">
+            <div class="card-title">CLV / ARPU Trend</div>
+            <div class="cw"><div class="ci" style="height:180px;"><canvas id="clvChart"></canvas></div></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Churn Rate &amp; Retention</div>
+            <div class="cw"><div class="ci" style="height:180px;"><canvas id="churnChart"></canvas></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ROADMAP ── -->
+      <div id="tab-roadmap" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <h3 style="font-size:16px;font-weight:700;">Strategy &amp; Feature Roadmap</h3>
+          <button class="btn btn-p" onclick="openRoadmapModal()">+ Add Feature</button>
+        </div>
+        <div class="card">
+          <div class="tw">
+            <table><thead><tr><th>#</th><th>Feature / Goal</th><th>Description</th><th>Priority</th><th>Status</th><th>Due Date</th><th>Owner</th><th>Actions</th></tr></thead>
+            <tbody id="roadmap-tbody"><tr><td colspan="8"><div class="es"><div class="es-ico">🗺️</div><div class="es-txt">No roadmap items yet</div></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ISSUES ── -->
+      <div id="tab-issues" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <h3 style="font-size:16px;font-weight:700;">Issues &amp; User Feedback</h3>
+          <button class="btn btn-p" onclick="openIssueModal()">+ Log Issue</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;" id="issue-stats-row"></div>
+        <div class="card">
+          <div class="tw">
+            <table><thead><tr><th>ID</th><th>Title</th><th>Category</th><th>Priority</th><th>Status</th><th>Reporter</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="issues-tbody"><tr><td colspan="8"><div class="es"><div class="es-ico">🐛</div><div class="es-txt">No issues logged yet</div></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── MATRIX ── -->
+      <div id="tab-matrix" style="display:none;">
+        <div style="margin-bottom:16px;">
+          <h3 style="font-size:16px;font-weight:700;margin-bottom:4px;">Priority Matrix (Eisenhower)</h3>
+          <p style="font-size:13px;color:var(--t3);">Auto-classifies open issues &amp; roadmap items by urgency × impact.</p>
+        </div>
+        <div class="mx-grid">
+          <div class="mx-cell q2"><div class="mx-title" style="color:#B91C1C;">🔴 Do First — High Priority + High Impact</div><div id="matrix-q2"></div></div>
+          <div class="mx-cell q1"><div class="mx-title" style="color:#92400E;">🟡 Schedule — Low Priority + High Impact</div><div id="matrix-q1"></div></div>
+          <div class="mx-cell q4"><div class="mx-title" style="color:#065F46;">🟢 Delegate — High Priority + Low Impact</div><div id="matrix-q4"></div></div>
+          <div class="mx-cell q3"><div class="mx-title" style="color:#6B7280;">⬜ Eliminate — Low Priority + Low Impact</div><div id="matrix-q3"></div></div>
+        </div>
+        <div style="margin-top:16px;padding:14px 18px;background:var(--blue-f);border:1px solid #BFDBFE;border-radius:var(--rs);font-size:13px;color:var(--blue);">
+          💡 <strong>PM Tip:</strong> Fix "Do First" items before anything else — they block users and hurt retention.
+        </div>
+      </div>
+    </div><!-- /dashboard -->
+
+    <!-- SETTINGS -->
+    <div id="settings-page" style="display:none;">
+      <h2 style="font-size:18px;font-weight:700;margin-bottom:6px;">⚙️ Global Settings</h2>
+      <p style="font-size:13.5px;color:var(--t3);margin-bottom:24px;">Add, manage, and delete products from your workspace.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
+        <div class="card">
+          <div class="card-title">Add New Product</div>
+          <div class="fg"><label class="fl">Product Name *</label><input class="fi" id="new-product-name" placeholder="e.g. Mobile App, IoT Platform…"/></div>
+          <div class="fg"><label class="fl">Description</label><input class="fi" id="new-product-desc" placeholder="Short description…"/></div>
+          <div class="fg"><label class="fl">Icon Emoji</label><input class="fi" id="new-product-icon" placeholder="📦" maxlength="2" style="width:80px;"/></div>
+          <button class="btn btn-p" onclick="addProduct()">+ Create Product</button>
+        </div>
+        <div class="card">
+          <div class="card-title">All Products (<span id="products-count">0</span>)</div>
+          <div id="settings-product-list"><div class="es" style="padding:28px 0;"><div class="es-ico">📦</div><div class="es-txt">No products yet</div></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page -->
+</div><!-- /main -->
+
+<!-- ══════════════════════════════════════════════════════════
+     MODAL: Monthly KPI Data Entry
+     Rows = 12 months, Columns = each KPI metric, Tab = Year
+══════════════════════════════════════════════════════════ -->
+<div class="mo" id="kpi-modal">
+  <div class="mb">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+      <div class="m-title" style="margin-bottom:0;">📅 Monthly KPI Data</div>
+      <!-- Year picker: type any year or use arrows, then press Add -->
+      <div style="display:flex;align-items:center;gap:6px;">
+        <label style="font-size:12px;font-weight:600;color:var(--t2);white-space:nowrap;">Add Year:</label>
+        <input id="add-year-input" type="number" min="1900" max="2100"
+               style="width:90px;padding:6px 10px;border:1px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:var(--fm);outline:none;"
+               placeholder="e.g. 2022"
+               onkeydown="if(event.key==='Enter') addKpiYear()"/>
+        <button class="btn btn-p btn-sm" onclick="addKpiYear()">+ Add</button>
+      </div>
+    </div>
+
+    <!-- Year tabs -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;" id="kpi-year-tabs"></div>
+
+    <!-- Monthly input table -->
+    <div style="overflow-x:auto;">
+      <table class="mk-table">
+        <thead>
+          <tr>
+            <th style="min-width:90px;">Month</th>
+            <th>Revenue (﷼)</th>
+            <th>CAC (﷼)</th>
+            <th>CLV (﷼)</th>
+            <th>ARPU (﷼)</th>
+            <th>Users</th>
+            <th>Churn %</th>
+            <th>Retention %</th>
+            <th>NPS</th>
+          </tr>
+        </thead>
+        <tbody id="kpi-monthly-tbody"></tbody>
+      </table>
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:space-between;margin-top:16px;align-items:center;">
+      <div style="font-size:12px;color:var(--t3);">💡 Fill in data for each month. Empty cells default to 0.</div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-g" onclick="closeModal('kpi-modal')">Cancel</button>
+        <button class="btn btn-p" onclick="saveMonthlyKPIs()">💾 Save All Data</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Roadmap -->
+<div class="mo" id="roadmap-modal">
+  <div class="mb mb-sm">
+    <div class="m-title" id="roadmap-modal-title">🗺️ Add Roadmap Item</div>
+    <input type="hidden" id="roadmap-edit-id"/>
+    <div class="fg"><label class="fl">Feature / Goal Title *</label><input class="fi" id="rm-title" placeholder="e.g. Dark Mode, API v2…"/></div>
+    <div class="fg"><label class="fl">Description</label><textarea class="fta" id="rm-desc" placeholder="What does this accomplish?"></textarea></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="fg"><label class="fl">Priority</label><select class="fs" id="rm-priority"><option value="High">🔴 High</option><option value="Medium" selected>🟡 Medium</option><option value="Low">🟢 Low</option></select></div>
+      <div class="fg"><label class="fl">Status</label><select class="fs" id="rm-status"><option value="Planned">📅 Planned</option><option value="Active">⚡ Active</option><option value="Done">✅ Done</option></select></div>
+      <div class="fg"><label class="fl">Due Date</label><input class="fi" id="rm-duedate" type="date"/></div>
+      <div class="fg"><label class="fl">Owner / Team</label><input class="fi" id="rm-owner" placeholder="e.g. Product Team"/></div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
+      <button class="btn btn-g" onclick="closeModal('roadmap-modal')">Cancel</button>
+      <button class="btn btn-p" onclick="saveRoadmapItem()">💾 Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Issue -->
+<div class="mo" id="issue-modal">
+  <div class="mb mb-sm">
+    <div class="m-title" id="issue-modal-title">🐛 Log Issue / Feedback</div>
+    <input type="hidden" id="issue-edit-id"/>
+    <div class="fg"><label class="fl">Issue Title *</label><input class="fi" id="is-title" placeholder="Short descriptive title…"/></div>
+    <div class="fg"><label class="fl">Description</label><textarea class="fta" id="is-desc" placeholder="Describe the issue…"></textarea></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="fg"><label class="fl">Category</label><select class="fs" id="is-category"><option value="Bug">🐛 Bug</option><option value="Feature Request">💡 Feature Request</option><option value="UX Issue">🎨 UX Issue</option><option value="Performance">⚡ Performance</option><option value="Security">🔐 Security</option><option value="Feedback">💬 Feedback</option></select></div>
+      <div class="fg"><label class="fl">Priority</label><select class="fs" id="is-priority"><option value="High">🔴 High</option><option value="Medium" selected>🟡 Medium</option><option value="Low">🟢 Low</option></select></div>
+      <div class="fg"><label class="fl">Status</label><select class="fs" id="is-status"><option value="Open">🔓 Open</option><option value="In Progress">🔄 In Progress</option><option value="Closed">✅ Closed</option></select></div>
+      <div class="fg"><label class="fl">Impact</label><select class="fs" id="is-impact"><option value="High">High Impact</option><option value="Medium" selected>Medium Impact</option><option value="Low">Low Impact</option></select></div>
+      <div class="fg"><label class="fl">Reported By</label><input class="fi" id="is-reporter" placeholder="e.g. Ahmed, Customer…"/></div>
+      <div class="fg"><label class="fl">Date</label><input class="fi" id="is-date" type="date"/></div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
+      <button class="btn btn-g" onclick="closeModal('issue-modal')">Cancel</button>
+      <button class="btn btn-p" onclick="saveIssue()">💾 Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPTS (bottom of body for correct load order)
+═══════════════════════════════════════════════════════ -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   FIREBASE INIT
+═══════════════════════════════════════════════════ */
+var firebaseConfig = {
+  apiKey:"AIzaSyAQdUkL2nGR35BMjErcDwAnjnBo7Lj4hmk",
+  authDomain:"product-manager1321.firebaseapp.com",
+  projectId:"product-manager1321",
+  storageBucket:"product-manager1321.firebasestorage.app",
+  messagingSenderId:"115076112266",
+  appId:"1:115076112266:web:3e1d96b3c4480a64b7b273"
+};
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
+var COL = "product_management";
+
+/* ═══════════════════════════════════════════════════
+   CONSTANTS
+═══════════════════════════════════════════════════ */
+var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var MONTH_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var KPI_FIELDS  = ['revenue','cac','clv','arpu','users','churn','retention','nps'];
+var KPI_LABELS  = ['Revenue (﷼)','CAC (﷼)','CLV (﷼)','ARPU (﷼)','Users','Churn %','Retention %','NPS'];
+
+/* ═══════════════════════════════════════════════════
+   APP STATE
+═══════════════════════════════════════════════════ */
+var products         = [];
+var currentProductId = null;
+var monthlyKpiData   = {};  // { "2024": { "0": {revenue,cac,...}, "1":{...}, ... } }
+var roadmapItems     = [];
+var issuesData       = [];
+var kpiDocId         = null; // Firestore doc id for this product's KPI document
+
+// Filter state
+var selectedYears  = [];  // [] means ALL
+var selectedMonths = [];  // [] means ALL
+
+// Modal state
+var kpiModalYear   = null; // which year tab is active in KPI modal
+var kpiModalData   = {};   // local copy being edited in modal
+
+// Chart instances
+var revenueChartI = null, healthChartI = null, clvChartI = null, churnChartI = null;
+
+// Firestore unsubs
+var unsubKPI = null, unsubRoadmap = null, unsubIssues = null;
+var toastTimer;
+
+/* ═══════════════════════════════════════════════════
+   BOOT
+═══════════════════════════════════════════════════ */
+window.addEventListener('load', function() {
+  document.getElementById('current-date').textContent =
+    new Date().toLocaleDateString('en-SA',{weekday:'short',year:'numeric',month:'short',day:'numeric'});
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.ms-wrap')) {
+      document.querySelectorAll('.ms-dropdown').forEach(function(d){ d.classList.remove('open'); });
+      document.querySelectorAll('.ms-trigger').forEach(function(t){ t.classList.remove('open'); });
+    }
+  });
+
+  // Close modals when clicking backdrop
+  document.querySelectorAll('.mo').forEach(function(o){
+    o.addEventListener('click', function(e){ if(e.target===o) o.classList.remove('open'); });
+  });
+
+  buildMonthOptions();
+  listenProducts();
+});
+
+/* ═══════════════════════════════════════════════════
+   LOADING
+═══════════════════════════════════════════════════ */
+function hideLoadingScreen() {
+  var el = document.getElementById('app-loading');
+  if (!el) return;
+  el.style.opacity = '0';
+  setTimeout(function(){ el.style.display='none'; }, 400);
+}
+
+/* ═══════════════════════════════════════════════════
+   MULTI-SELECT DROPDOWNS
+═══════════════════════════════════════════════════ */
+function buildMonthOptions() {
+  var cont = document.getElementById('month-options');
+  cont.innerHTML = MONTH_NAMES.map(function(m, i){
+    return '<label class="ms-option">'
+      +'<input type="checkbox" value="'+i+'" onchange="onFilterChange(\'month\')"> '+m
+      +'</label>';
+  }).join('');
+}
+
+function buildYearOptions() {
+  // Collect all years present in monthlyKpiData
+  var years = Object.keys(monthlyKpiData).sort(function(a,b){return Number(b)-Number(a);});
+  // Always include current year
+  var cy = String(new Date().getFullYear());
+  if (years.indexOf(cy) < 0) years.unshift(cy);
+
+  var cont = document.getElementById('year-options');
+  cont.innerHTML = years.map(function(y){
+    return '<label class="ms-option">'
+      +'<input type="checkbox" value="'+y+'" onchange="onFilterChange(\'year\')"> '+y
+      +'</label>';
+  }).join('');
+  updateFilterLabel('year');
+}
+
+function toggleMs(type) {
+  var dd = document.getElementById(type+'-dropdown');
+  var tr = document.getElementById(type+'-trigger');
+  var isOpen = dd.classList.contains('open');
+  // Close all first
+  document.querySelectorAll('.ms-dropdown').forEach(function(d){ d.classList.remove('open'); });
+  document.querySelectorAll('.ms-trigger').forEach(function(t){ t.classList.remove('open'); });
+  if (!isOpen) { dd.classList.add('open'); tr.classList.add('open'); }
+}
+
+function msSelectAll(type) {
+  document.querySelectorAll('#'+type+'-options input[type=checkbox]').forEach(function(cb){ cb.checked=true; });
+  onFilterChange(type);
+}
+
+function msClearAll(type) {
+  document.querySelectorAll('#'+type+'-options input[type=checkbox]').forEach(function(cb){ cb.checked=false; });
+  onFilterChange(type);
+}
+
+function onFilterChange(type) {
+  var checked = [];
+  document.querySelectorAll('#'+type+'-options input[type=checkbox]:checked').forEach(function(cb){ checked.push(cb.value); });
+  if (type === 'year') selectedYears = checked;
+  else selectedMonths = checked.map(Number);
+  updateFilterLabel(type);
+  refreshDashboard();
+}
+
+function updateFilterLabel(type) {
+  var all = document.querySelectorAll('#'+type+'-options input[type=checkbox]');
+  var checked = document.querySelectorAll('#'+type+'-options input[type=checkbox]:checked');
+  var lbl = document.getElementById(type+'-label');
+  if (!lbl) return;
+  if (checked.length === 0 || checked.length === all.length) {
+    lbl.textContent = type==='year' ? 'All Years' : 'All Months';
+  } else {
+    var names = [];
+    checked.forEach(function(cb){
+      names.push(type==='year' ? cb.value : MONTH_SHORT[Number(cb.value)]);
+    });
+    lbl.textContent = names.join(', ');
+  }
+  renderFilterChips();
+}
+
+function renderFilterChips() {
+  var chips = document.getElementById('filter-chips');
+  if (!chips) return;
+  var html = '';
+  if (selectedYears.length > 0) {
+    html += '<span class="filter-chip">📅 ' + selectedYears.join(', ') + '</span>';
+  }
+  if (selectedMonths.length > 0) {
+    html += '<span class="filter-chip">🗓️ ' + selectedMonths.map(function(i){ return MONTH_SHORT[i]; }).join(', ') + '</span>';
+  }
+  chips.innerHTML = html;
+}
+
+/* ═══════════════════════════════════════════════════
+   PRODUCTS
+═══════════════════════════════════════════════════ */
+function listenProducts() {
+  db.collection(COL).where('type','==','product')
+    .onSnapshot(function(snap){
+      products = snap.docs.map(function(d){ return Object.assign({id:d.id},d.data()); });
+      products.sort(function(a,b){ return (a.name||'').localeCompare(b.name||''); });
+      renderSidebar();
+      renderSettingsProductList();
+      hideLoadingScreen();
+    }, function(err){ console.warn(err); hideLoadingScreen(); });
+}
+
+function renderSidebar() {
+  var nav = document.getElementById('products-nav');
+  if (!products.length) {
+    nav.innerHTML='<div class="sb-item" style="color:#475569;font-size:12px;cursor:default;"><span class="ico">📦</span><span>No products yet</span></div>';
+    return;
+  }
+  nav.innerHTML = products.map(function(p){
+    return '<div class="sb-item '+(currentProductId===p.id?'active':'')+'" onclick="selectProduct(\''+p.id+'\')"><span class="ico">'+(p.icon||'📦')+'</span><span>'+escH(p.name)+'</span></div>';
+  }).join('');
+}
+
+function selectProduct(pid) {
+  currentProductId = pid;
+  var p = products.find(function(x){ return x.id===pid; });
+  if (unsubKPI)     unsubKPI();
+  if (unsubRoadmap) unsubRoadmap();
+  if (unsubIssues)  unsubIssues();
+
+  document.getElementById('topbar-product-name').textContent = p ? p.name : 'Product';
+  document.getElementById('topbar-subtitle').textContent = (p&&p.description) ? p.description : 'Product Dashboard';
+  document.getElementById('health-badge').style.display = 'flex';
+  document.getElementById('welcome-screen').style.display = 'none';
+  document.getElementById('settings-page').style.display = 'none';
+  document.getElementById('product-dashboard').style.display = 'block';
+
+  // Reset filters
+  selectedYears = []; selectedMonths = [];
+  msClearAll('year'); msClearAll('month');
+
+  renderSidebar();
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn')[0].classList.add('active');
+  ['overview','roadmap','issues','matrix'].forEach(function(t){
+    document.getElementById('tab-'+t).style.display = t==='overview'?'block':'none';
+  });
+
+  listenKPI();
+  listenRoadmap();
+  listenIssues();
+}
+
+/* ═══════════════════════════════════════════════════
+   TAB SWITCHING
+═══════════════════════════════════════════════════ */
+function switchTab(name, btn) {
+  ['overview','roadmap','issues','matrix'].forEach(function(t){
+    document.getElementById('tab-'+t).style.display='none';
+  });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-'+name).style.display='block';
+  if (btn) btn.classList.add('active');
+  if (name==='matrix') renderPriorityMatrix();
+}
+
+/* ═══════════════════════════════════════════════════
+   KPI — Firestore listener (single doc per product)
+   Structure: { type:'kpi', productId:'...', data: { "2024": { "0":{...}, "1":{...}, ... } } }
+═══════════════════════════════════════════════════ */
+function listenKPI() {
+  unsubKPI = db.collection(COL)
+    .where('type','==','kpi').where('productId','==',currentProductId)
+    .onSnapshot(function(snap){
+      if (!snap.empty) {
+        var doc = snap.docs[0];
+        kpiDocId = doc.id;
+        monthlyKpiData = doc.data().data || {};
+      } else {
+        kpiDocId = null;
+        monthlyKpiData = {};
+      }
+      buildYearOptions(); // refresh year dropdown with actual years
+      refreshDashboard();
+    }, function(e){ console.warn('KPI:',e.message); });
+}
+
+/* ═══════════════════════════════════════════════════
+   FILTER & AGGREGATE: compute effective KPI snapshot
+   Returns averaged/summed values across selected months
+═══════════════════════════════════════════════════ */
+function getFilteredKPIs() {
+  // Determine which years to include
+  var allYears = Object.keys(monthlyKpiData);
+  var years = (selectedYears.length > 0) ? selectedYears : allYears;
+
+  // Determine which month indices to include (0-11)
+  var months = (selectedMonths.length > 0) ? selectedMonths : [0,1,2,3,4,5,6,7,8,9,10,11];
+
+  var totals = {revenue:0,cac:0,clv:0,arpu:0,users:0,churn:0,retention:0,nps:0};
+  var counts = {revenue:0,cac:0,clv:0,arpu:0,users:0,churn:0,retention:0,nps:0};
+
+  years.forEach(function(yr){
+    var yrData = monthlyKpiData[yr] || {};
+    months.forEach(function(mi){
+      var mData = yrData[String(mi)] || {};
+      KPI_FIELDS.forEach(function(f){
+        var v = parseFloat(mData[f]);
+        if (!isNaN(v) && v !== 0) {
+          totals[f] += v;
+          counts[f]++;
+        }
+      });
+    });
+  });
+
+  // Average for rates/scores, sum for revenue/users
+  var result = {};
+  KPI_FIELDS.forEach(function(f){
+    if (counts[f] === 0) { result[f] = 0; return; }
+    // Revenue and users: sum; rest: average
+    if (f==='revenue'||f==='users') result[f] = totals[f];
+    else result[f] = totals[f] / counts[f];
+  });
+  return result;
+}
+
+/* ─ Get filtered data as series for charts (per month across selected years) ─ */
+function getChartSeries() {
+  var allYears = Object.keys(monthlyKpiData).sort(function(a,b){return Number(a)-Number(b);});
+  var years = (selectedYears.length > 0) ? selectedYears.slice().sort(function(a,b){return Number(a)-Number(b);}) : allYears;
+  var months = (selectedMonths.length > 0) ? selectedMonths.slice().sort(function(a,b){return a-b;}) : [0,1,2,3,4,5,6,7,8,9,10,11];
+
+  var labels = [];
+  var series = {};
+  KPI_FIELDS.forEach(function(f){ series[f] = []; });
+
+  years.forEach(function(yr){
+    var yrData = monthlyKpiData[yr] || {};
+    months.forEach(function(mi){
+      // Label: if multiple years, show "Jan 2024"; if one year, "Jan"
+      labels.push(years.length>1 ? MONTH_SHORT[mi]+' '+yr : MONTH_SHORT[mi]);
+      var mData = yrData[String(mi)] || {};
+      KPI_FIELDS.forEach(function(f){
+        series[f].push(parseFloat(mData[f])||0);
+      });
+    });
+  });
+
+  return { labels: labels, series: series };
+}
+
+/* ═══════════════════════════════════════════════════
+   REFRESH DASHBOARD (called after filter change or data change)
+═══════════════════════════════════════════════════ */
+function refreshDashboard() {
+  var kpi = getFilteredKPIs();
+  renderKPICards(kpi);
+  renderCharts();
+}
+
+function computeHealth(d) {
+  var nps=Number(d.nps||0),churn=Number(d.churn||0),ret=Number(d.retention||0);
+  var clv=Number(d.clv||0),cac=Number(d.cac||1),ratio=cac>0?clv/cac:0;
+  var h = Math.min(30,(nps+100)/200*30)+Math.min(25,Math.max(0,100-churn*5))+Math.min(25,ret/4)+Math.min(20,Math.min(ratio/5,1)*20);
+  return Math.round(Math.min(100,Math.max(0,h)));
+}
+
+function renderKPICards(d) {
+  function sar(v){ return '﷼ '+Number(v||0).toLocaleString('en-SA'); }
+  function pct(v){ return Number(v||0).toFixed(1)+'%'; }
+  var h = computeHealth(d);
+  document.getElementById('health-score-display').textContent = 'Health: '+h+'/100';
+  var nps = Number(d.nps||0);
+  var kpis = [
+    {l:'Monthly Revenue',v:sar(d.revenue),s:'This period',c:'blue',i:'💰'},
+    {l:'CAC',v:sar(d.cac),s:'Cost per acquisition',c:'amber',i:'🎯'},
+    {l:'CLV',v:sar(d.clv),s:'Customer lifetime value',c:'green',i:'💎'},
+    {l:'ARPU',v:sar(d.arpu),s:'Avg revenue per user',c:'purple',i:'👤'},
+    {l:'Active Users',v:Number(d.users||0).toLocaleString(),s:'Current users',c:'blue',i:'🙋'},
+    {l:'Churn Rate',v:pct(d.churn),s:'Monthly churn',c:'red',i:'📉'},
+    {l:'Retention',v:pct(d.retention),s:'Monthly retention',c:'green',i:'📈'},
+    {l:'NPS Score',v:nps,s:'Net Promoter Score',c:nps>=50?'green':nps>=0?'amber':'red',i:'⭐'},
+  ];
+  document.getElementById('kpi-grid').innerHTML = kpis.map(function(k){
+    return '<div class="kc '+k.c+'"><div class="kc-lbl">'+k.i+' '+k.l+'</div><div class="kc-val">'+k.v+'</div><div class="kc-sub">'+k.s+'</div></div>';
+  }).join('');
+  var level = h>=70?'🟢 Healthy':h>=40?'🟡 Needs Attention':'🔴 Critical';
+  document.getElementById('health-explanation').innerHTML = '<strong>'+level+'</strong><br>'+h+'/100 points';
+}
+
+/* ═══════════════════════════════════════════════════
+   CHARTS
+═══════════════════════════════════════════════════ */
+function renderCharts() {
+  var cs = getChartSeries();
+  var labels = cs.labels, s = cs.series;
+  var kpi = getFilteredKPIs();
+
+  // Revenue + CAC combo chart
+  if (revenueChartI) revenueChartI.destroy();
+  var c1 = document.getElementById('revenueChart');
+  if (c1) revenueChartI = new Chart(c1.getContext('2d'),{
+    data:{labels:labels,datasets:[
+      {type:'bar',label:'Revenue (﷼)',data:s.revenue,backgroundColor:'rgba(37,99,235,0.13)',borderColor:'#2563EB',borderWidth:2,borderRadius:5},
+      {type:'line',label:'CAC (﷼)',data:s.cac,borderColor:'#F59E0B',borderWidth:2,tension:0.4,fill:false,pointRadius:3}
+    ]},
+    options:chartOpts()
+  });
+
+  // Health doughnut
+  var health = computeHealth(kpi);
+  if (healthChartI) healthChartI.destroy();
+  var c2 = document.getElementById('healthChart');
+  if (c2) {
+    var hc = health>=70?'#10B981':health>=40?'#F59E0B':'#EF4444';
+    healthChartI = new Chart(c2.getContext('2d'),{
+      type:'doughnut',
+      data:{datasets:[{data:[health,100-health],backgroundColor:[hc,'#F1F5F9'],borderWidth:0}]},
+      options:{cutout:'75%',plugins:{legend:{display:false},tooltip:{enabled:false}},animation:{animateRotate:true,duration:800}},
+      plugins:[{id:'ct',afterDraw:function(ch){
+        var ctx=ch.ctx,w=ch.width,hh=ch.height;
+        ctx.save();ctx.font="700 28px 'JetBrains Mono',monospace";ctx.fillStyle=hc;ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.fillText(health,w/2,hh/2);ctx.restore();
+      }}]
+    });
+  }
+
+  // CLV / ARPU
+  if (clvChartI) clvChartI.destroy();
+  var c3 = document.getElementById('clvChart');
+  if (c3) clvChartI = new Chart(c3.getContext('2d'),{type:'line',data:{labels:labels,datasets:[
+    {label:'CLV (﷼)',data:s.clv,borderColor:'#8B5CF6',borderWidth:2,tension:0.4,fill:true,backgroundColor:'rgba(139,92,246,0.07)',pointRadius:2},
+    {label:'ARPU (﷼)',data:s.arpu,borderColor:'#10B981',borderWidth:2,tension:0.4,fill:false,pointRadius:2}
+  ]},options:chartOpts()});
+
+  // Churn / Retention
+  if (churnChartI) churnChartI.destroy();
+  var c4 = document.getElementById('churnChart');
+  if (c4) churnChartI = new Chart(c4.getContext('2d'),{type:'line',data:{labels:labels,datasets:[
+    {label:'Churn %',data:s.churn,borderColor:'#EF4444',borderWidth:2,tension:0.4,fill:true,backgroundColor:'rgba(239,68,68,0.07)',pointRadius:2},
+    {label:'Retention %',data:s.retention,borderColor:'#10B981',borderWidth:2,tension:0.4,fill:false,pointRadius:2}
+  ]},options:chartOpts()});
+}
+
+function chartOpts() {
+  return {
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'bottom',labels:{font:{family:'Sora',size:11},boxWidth:10,padding:14}},
+      tooltip:{backgroundColor:'#0F172A',titleFont:{family:'Sora',size:12},bodyFont:{family:'JetBrains Mono',size:12},padding:10,cornerRadius:8}
+    },
+    scales:{
+      x:{grid:{display:false},ticks:{font:{family:'Sora',size:11},color:'#94A3B8',maxRotation:45}},
+      y:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:11},color:'#94A3B8'},beginAtZero:true}
+    }
+  };
+}
+
+/* ═══════════════════════════════════════════════════
+   MONTHLY KPI MODAL
+═══════════════════════════════════════════════════ */
+function openKpiModal() {
+  // Deep clone current data for editing
+  kpiModalData = JSON.parse(JSON.stringify(monthlyKpiData));
+
+  // Default to current year if no years
+  var allYears = Object.keys(kpiModalData).sort(function(a,b){return Number(b)-Number(a);});
+  if (!allYears.length) {
+    var cy = String(new Date().getFullYear());
+    kpiModalData[cy] = {};
+    allYears = [cy];
+  }
+  kpiModalYear = allYears[0];
+  renderKpiModalYearTabs();
+  renderKpiMonthlyTable();
+  openModal('kpi-modal');
+}
+
+function renderKpiModalYearTabs() {
+  var years = Object.keys(kpiModalData).sort(function(a,b){return Number(b)-Number(a);});
+  document.getElementById('kpi-year-tabs').innerHTML = years.map(function(y){
+    return '<button class="mk-year-tab '+(y===kpiModalYear?'active':'')+'" onclick="switchKpiYear(\''+y+'\')">'+y+'</button>';
+  }).join('');
+}
+
+function switchKpiYear(yr) {
+  // Save current table values before switching
+  saveCurrentModalYearData();
+  kpiModalYear = yr;
+  renderKpiModalYearTabs();
+  renderKpiMonthlyTable();
+}
+
+function addKpiYear() {
+  var inp = document.getElementById('add-year-input');
+  var val = inp ? inp.value.trim() : '';
+  if (!val) {
+    var existing = Object.keys(kpiModalData).map(Number);
+    val = existing.length ? String(Math.min.apply(null,existing)-1) : String(new Date().getFullYear());
+  }
+  var yr = parseInt(val, 10);
+  if (isNaN(yr)||yr<1900||yr>2100) { showToast('⚠️ Enter a valid year (1900–2100)'); return; }
+  var newYear = String(yr);
+  if (kpiModalData[newYear]) {
+    showToast('⚠️ Year '+newYear+' already exists — click its tab');
+    if(inp) inp.value=''; return;
+  }
+  saveCurrentModalYearData();
+  kpiModalData[newYear] = {};
+  kpiModalYear = newYear;
+  if(inp) inp.value='';
+  renderKpiModalYearTabs();
+  renderKpiMonthlyTable();
+}
+
+function renderKpiMonthlyTable() {
+  var yrData = kpiModalData[kpiModalYear] || {};
+  var tbody = document.getElementById('kpi-monthly-tbody');
+  tbody.innerHTML = MONTH_NAMES.map(function(mName, mi){
+    var mData = yrData[String(mi)] || {};
+    var inputs = KPI_FIELDS.map(function(f){
+      var val = (mData[f] !== undefined && mData[f] !== null) ? mData[f] : '';
+      return '<td><input class="mi" type="number" step="any" placeholder="0" data-field="'+f+'" data-month="'+mi+'" value="'+val+'"/></td>';
+    }).join('');
+    return '<tr>'
+      +'<td class="month-lbl">'+mName+'</td>'
+      +inputs
+      +'</tr>';
+  }).join('');
+}
+
+function saveCurrentModalYearData() {
+  if (!kpiModalYear) return;
+  if (!kpiModalData[kpiModalYear]) kpiModalData[kpiModalYear] = {};
+  document.querySelectorAll('#kpi-monthly-tbody input.mi').forEach(function(inp){
+    var f = inp.dataset.field;
+    var mi = inp.dataset.month;
+    var v = inp.value.trim();
+    if (!kpiModalData[kpiModalYear][mi]) kpiModalData[kpiModalYear][mi] = {};
+    kpiModalData[kpiModalYear][mi][f] = v==='' ? null : parseFloat(v)||0;
+  });
+}
+
+function saveMonthlyKPIs() {
+  saveCurrentModalYearData();
+
+  var payload = {
+    type:'kpi',
+    productId:currentProductId,
+    data: kpiModalData,
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  };
+
+  var op = kpiDocId
+    ? db.collection(COL).doc(kpiDocId).update(payload)
+    : (payload.createdAt=firebase.firestore.FieldValue.serverTimestamp(), db.collection(COL).add(payload));
+
+  op.then(function(){
+    closeModal('kpi-modal');
+    showToast('✅ Monthly KPI data saved');
+  }).catch(function(e){ showToast('❌ '+e.message); });
+}
+
+/* ═══════════════════════════════════════════════════
+   ROADMAP CRUD
+═══════════════════════════════════════════════════ */
+function listenRoadmap() {
+  unsubRoadmap = db.collection(COL)
+    .where('type','==','roadmap').where('productId','==',currentProductId)
+    .onSnapshot(function(snap){
+      roadmapItems = snap.docs.map(function(d){ return Object.assign({id:d.id},d.data()); });
+      roadmapItems.sort(function(a,b){ var o={High:0,Medium:1,Low:2}; return (o[a.priority]!=null?o[a.priority]:1)-(o[b.priority]!=null?o[b.priority]:1); });
+      renderRoadmapTable();
+    },function(e){ console.warn(e.message); });
+}
+
+function renderRoadmapTable() {
+  var tb = document.getElementById('roadmap-tbody');
+  if (!roadmapItems.length) { tb.innerHTML='<tr><td colspan="8"><div class="es"><div class="es-ico">🗺️</div><div class="es-txt">No roadmap items yet</div></div></td></tr>'; return; }
+  tb.innerHTML = roadmapItems.map(function(item,i){
+    var sc=(item.status||'planned').toLowerCase().replace(' ','');
+    return '<tr><td style="font-family:var(--mono);color:var(--t3);font-size:12px;">'+(i+1)+'</td>'
+      +'<td style="font-weight:600;max-width:180px;">'+escH(item.title)+'</td>'
+      +'<td style="color:var(--t2);max-width:200px;font-size:13px;">'+escH(item.description||'—')+'</td>'
+      +'<td><span class="badge badge-'+(item.priority||'medium').toLowerCase()+'">'+(item.priority||'Medium')+'</span></td>'
+      +'<td><span class="badge badge-'+sc+'">'+(item.status||'Planned')+'</span></td>'
+      +'<td style="font-family:var(--mono);font-size:12px;white-space:nowrap;">'+(item.duedate||'—')+'</td>'
+      +'<td style="font-size:13px;">'+escH(item.owner||'—')+'</td>'
+      +'<td><div style="display:flex;gap:6px;">'
+      +'<button class="btn btn-g btn-sm" onclick="editRoadmapItem(\''+item.id+'\')">✏️</button>'
+      +'<button class="btn btn-d btn-sm" onclick="delDoc(\''+item.id+'\',\'roadmap item\')">🗑️</button>'
+      +'</div></td></tr>';
+  }).join('');
+}
+
+function openRoadmapModal(editId) {
+  document.getElementById('roadmap-modal-title').textContent = editId?'✏️ Edit Roadmap Item':'🗺️ Add Roadmap Item';
+  document.getElementById('roadmap-edit-id').value = editId||'';
+  if (!editId) {
+    document.getElementById('rm-title').value='';document.getElementById('rm-desc').value='';
+    document.getElementById('rm-priority').value='Medium';document.getElementById('rm-status').value='Planned';
+    document.getElementById('rm-duedate').value='';document.getElementById('rm-owner').value='';
+  }
+  openModal('roadmap-modal');
+}
+
+function editRoadmapItem(id) {
+  var item=roadmapItems.find(function(r){return r.id===id;}); if(!item) return;
+  document.getElementById('rm-title').value=item.title||'';document.getElementById('rm-desc').value=item.description||'';
+  document.getElementById('rm-priority').value=item.priority||'Medium';document.getElementById('rm-status').value=item.status||'Planned';
+  document.getElementById('rm-duedate').value=item.duedate||'';document.getElementById('rm-owner').value=item.owner||'';
+  openRoadmapModal(id);
+}
+
+function saveRoadmapItem() {
+  var title=document.getElementById('rm-title').value.trim(); if(!title){showToast('⚠️ Title is required');return;}
+  var editId=document.getElementById('roadmap-edit-id').value;
+  var p={type:'roadmap',productId:currentProductId,title:title,
+    description:document.getElementById('rm-desc').value.trim(),priority:document.getElementById('rm-priority').value,
+    status:document.getElementById('rm-status').value,duedate:document.getElementById('rm-duedate').value,
+    owner:document.getElementById('rm-owner').value.trim(),updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
+  var op=editId?db.collection(COL).doc(editId).update(p):(p.createdAt=firebase.firestore.FieldValue.serverTimestamp(),db.collection(COL).add(p));
+  op.then(function(){closeModal('roadmap-modal');showToast('✅ Roadmap item saved');}).catch(function(e){showToast('❌ '+e.message);});
+}
+
+/* ═══════════════════════════════════════════════════
+   ISSUES CRUD
+═══════════════════════════════════════════════════ */
+function listenIssues() {
+  unsubIssues = db.collection(COL)
+    .where('type','==','issue').where('productId','==',currentProductId)
+    .onSnapshot(function(snap){
+      issuesData=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
+      issuesData.sort(function(a,b){var o={High:0,Medium:1,Low:2};return (o[a.priority]!=null?o[a.priority]:1)-(o[b.priority]!=null?o[b.priority]:1);});
+      renderIssuesTable();renderIssueStats();renderPriorityMatrix();
+    },function(e){console.warn(e.message);});
+}
+
+function renderIssueStats() {
+  var open=issuesData.filter(function(i){return i.status==='Open';}).length;
+  var inp=issuesData.filter(function(i){return i.status==='In Progress';}).length;
+  var cls=issuesData.filter(function(i){return i.status==='Closed';}).length;
+  var hi=issuesData.filter(function(i){return i.priority==='High';}).length;
+  document.getElementById('issue-stats-row').innerHTML=
+    '<div class="kc red" style="padding:14px 16px;"><div class="kc-lbl">🔓 Open</div><div class="kc-val" style="font-size:26px;">'+open+'</div></div>'
+   +'<div class="kc blue" style="padding:14px 16px;"><div class="kc-lbl">🔄 In Progress</div><div class="kc-val" style="font-size:26px;">'+inp+'</div></div>'
+   +'<div class="kc green" style="padding:14px 16px;"><div class="kc-lbl">✅ Closed</div><div class="kc-val" style="font-size:26px;">'+cls+'</div></div>'
+   +'<div class="kc amber" style="padding:14px 16px;"><div class="kc-lbl">🔴 High Priority</div><div class="kc-val" style="font-size:26px;">'+hi+'</div></div>';
+}
+
+function renderIssuesTable() {
+  var tb=document.getElementById('issues-tbody');
+  if(!issuesData.length){tb.innerHTML='<tr><td colspan="8"><div class="es"><div class="es-ico">🐛</div><div class="es-txt">No issues logged yet</div></div></td></tr>';return;}
+  tb.innerHTML=issuesData.map(function(item,i){
+    var sc=item.status==='In Progress'?'inprogress':(item.status||'open').toLowerCase();
+    return '<tr><td style="font-family:var(--mono);color:var(--t3);font-size:12px;">#'+String(i+1).padStart(3,'0')+'</td>'
+      +'<td style="font-weight:600;max-width:180px;">'+escH(item.title)+'</td>'
+      +'<td style="font-size:12.5px;color:var(--t2);">'+escH(item.category||'—')+'</td>'
+      +'<td><span class="badge badge-'+(item.priority||'medium').toLowerCase()+'">'+(item.priority||'Medium')+'</span></td>'
+      +'<td><span class="badge badge-'+sc+'">'+(item.status||'Open')+'</span></td>'
+      +'<td style="font-size:13px;">'+escH(item.reporter||'—')+'</td>'
+      +'<td style="font-family:var(--mono);font-size:12px;white-space:nowrap;">'+(item.date||'—')+'</td>'
+      +'<td><div style="display:flex;gap:6px;">'
+      +'<button class="btn btn-g btn-sm" onclick="editIssue(\''+item.id+'\')">✏️</button>'
+      +'<button class="btn btn-d btn-sm" onclick="delDoc(\''+item.id+'\',\'issue\')">🗑️</button>'
+      +'</div></td></tr>';
+  }).join('');
+}
+
+function openIssueModal(editId) {
+  document.getElementById('issue-modal-title').textContent=editId?'✏️ Edit Issue':'🐛 Log Issue / Feedback';
+  document.getElementById('issue-edit-id').value=editId||'';
+  if(!editId){
+    document.getElementById('is-title').value='';document.getElementById('is-desc').value='';
+    document.getElementById('is-category').value='Bug';document.getElementById('is-priority').value='Medium';
+    document.getElementById('is-status').value='Open';document.getElementById('is-impact').value='Medium';
+    document.getElementById('is-reporter').value='';document.getElementById('is-date').value=new Date().toISOString().split('T')[0];
+  }
+  openModal('issue-modal');
+}
+
+function editIssue(id) {
+  var item=issuesData.find(function(i){return i.id===id;});if(!item) return;
+  document.getElementById('is-title').value=item.title||'';document.getElementById('is-desc').value=item.description||'';
+  document.getElementById('is-category').value=item.category||'Bug';document.getElementById('is-priority').value=item.priority||'Medium';
+  document.getElementById('is-status').value=item.status||'Open';document.getElementById('is-impact').value=item.impact||'Medium';
+  document.getElementById('is-reporter').value=item.reporter||'';document.getElementById('is-date').value=item.date||'';
+  openIssueModal(id);
+}
+
+function saveIssue() {
+  var title=document.getElementById('is-title').value.trim();if(!title){showToast('⚠️ Title is required');return;}
+  var editId=document.getElementById('issue-edit-id').value;
+  var p={type:'issue',productId:currentProductId,title:title,
+    description:document.getElementById('is-desc').value.trim(),category:document.getElementById('is-category').value,
+    priority:document.getElementById('is-priority').value,status:document.getElementById('is-status').value,
+    impact:document.getElementById('is-impact').value,reporter:document.getElementById('is-reporter').value.trim(),
+    date:document.getElementById('is-date').value,updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
+  var op=editId?db.collection(COL).doc(editId).update(p):(p.createdAt=firebase.firestore.FieldValue.serverTimestamp(),db.collection(COL).add(p));
+  op.then(function(){closeModal('issue-modal');showToast('✅ Issue saved');}).catch(function(e){showToast('❌ '+e.message);});
+}
+
+/* ═══════════════════════════════════════════════════
+   PRIORITY MATRIX
+═══════════════════════════════════════════════════ */
+function renderPriorityMatrix() {
+  function classify(item){
+    var hi=item.priority==='High',hImpact=item.impact==='High'||(!item.impact&&hi);
+    if(hi&&hImpact) return 'q2'; if(!hi&&hImpact) return 'q1'; if(hi&&!hImpact) return 'q4'; return 'q3';
+  }
+  var cells={q1:[],q2:[],q3:[],q4:[]};
+  issuesData.concat(roadmapItems).forEach(function(item){
+    if(item.status==='Closed'||item.status==='Done') return;
+    cells[classify(item)].push(item);
+  });
+  ['q1','q2','q3','q4'].forEach(function(q){
+    var el=document.getElementById('matrix-'+q); if(!el) return;
+    if(!cells[q].length){el.innerHTML='<div style="font-size:12px;color:var(--t3);text-align:center;margin-top:12px;">No items</div>';return;}
+    el.innerHTML=cells[q].map(function(item){
+      return '<div style="background:rgba(255,255,255,.7);border-radius:6px;padding:7px 10px;margin-bottom:6px;font-size:12.5px;display:flex;align-items:center;gap:8px;">'
+        +'<span class="badge badge-'+(item.priority||'medium').toLowerCase()+'" style="font-size:10px;padding:2px 7px;">'+(item.priority||'—')+'</span>'
+        +'<span style="font-weight:500;">'+escH(item.title)+'</span></div>';
+    }).join('');
+  });
+}
+
+/* ═══════════════════════════════════════════════════
+   SETTINGS
+═══════════════════════════════════════════════════ */
+function navigateToSettings() {
+  currentProductId=null;
+  if(unsubKPI) unsubKPI(); if(unsubRoadmap) unsubRoadmap(); if(unsubIssues) unsubIssues();
+  document.getElementById('welcome-screen').style.display='none';
+  document.getElementById('product-dashboard').style.display='none';
+  document.getElementById('settings-page').style.display='block';
+  document.getElementById('topbar-product-name').textContent='Settings';
+  document.getElementById('topbar-subtitle').textContent='Manage Products';
+  document.getElementById('health-badge').style.display='none';
+  document.querySelectorAll('.sb-item').forEach(function(el){el.classList.remove('active');});
+  var sb=document.getElementById('settings-nav-btn'); if(sb) sb.classList.add('active');
+}
+
+function addProduct() {
+  var name=document.getElementById('new-product-name').value.trim();
+  var desc=document.getElementById('new-product-desc').value.trim();
+  var icon=document.getElementById('new-product-icon').value.trim()||'📦';
+  if(!name){showToast('⚠️ Product name is required');return;}
+  db.collection(COL).add({type:'product',name:name,description:desc,icon:icon,createdAt:firebase.firestore.FieldValue.serverTimestamp()})
+    .then(function(){
+      document.getElementById('new-product-name').value='';document.getElementById('new-product-desc').value='';document.getElementById('new-product-icon').value='';
+      showToast('✅ Product "'+name+'" created');
+    }).catch(function(e){showToast('❌ '+e.message);});
+}
+
+function renderSettingsProductList() {
+  document.getElementById('products-count').textContent=products.length;
+  var el=document.getElementById('settings-product-list');
+  if(!products.length){el.innerHTML='<div class="es" style="padding:28px 0;"><div class="es-ico">📦</div><div class="es-txt">No products yet</div></div>';return;}
+  el.innerHTML=products.map(function(p){
+    return '<div class="pl-item">'
+      +'<div style="display:flex;align-items:center;gap:10px;"><span style="font-size:20px;">'+(p.icon||'📦')+'</span>'
+      +'<div><div style="font-weight:600;font-size:14px;">'+escH(p.name)+'</div>'
+      +'<div style="font-size:12px;color:var(--t3);">'+escH(p.description||'No description')+'</div></div></div>'
+      +'<button class="btn btn-d btn-sm" onclick="deleteProduct(\''+p.id+'\',\''+escAttr(p.name)+'\')">🗑️ Delete</button>'
+      +'</div>';
+  }).join('');
+}
+
+function deleteProduct(id,name) {
+  if(!confirm('Delete product "'+name+'"? This will permanently remove ALL its data.')) return;
+  db.collection(COL).where('productId','==',id).get().then(function(snap){
+    var b=db.batch(); snap.docs.forEach(function(d){b.delete(d.ref);}); b.delete(db.collection(COL).doc(id)); return b.commit();
+  }).then(function(){
+    if(currentProductId===id){currentProductId=null;document.getElementById('product-dashboard').style.display='none';document.getElementById('welcome-screen').style.display='block';}
+    showToast('🗑️ Product "'+name+'" deleted');
+  }).catch(function(e){showToast('❌ '+e.message);});
+}
+
+function delDoc(id,label) {
+  if(!confirm('Delete this '+label+'?')) return;
+  db.collection(COL).doc(id).delete().then(function(){showToast('🗑️ Deleted');}).catch(function(e){showToast('❌ '+e.message);});
+}
+
+/* ═══════════════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════════════ */
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function showToast(msg) {
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){t.classList.remove('show');},3200);
+}
+
+function escH(str) {
+  var d=document.createElement('div'); d.appendChild(document.createTextNode(str||'')); return d.innerHTML;
+}
+function escAttr(str) { return (str||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+</script>
+</body>
+</html>
