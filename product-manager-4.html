@@ -131,8 +131,8 @@ tbody tr:hover td{background:#F8FAFC}
 .mk-year-tab:hover:not(.active){border-color:var(–blue-l)}
 
 /* MODAL */
-.mo{display:none;position:fixed;inset:0;background:rgba(11,17,32,.5);backdrop-filter:blur(4px);z-index:999;align-items:center;justify-content:center;padding:14px}
-.mo.open{display:flex}
+.mo{visibility:hidden;opacity:0;pointer-events:none;position:fixed;inset:0;background:rgba(11,17,32,.5);z-index:999;display:flex;align-items:center;justify-content:center;padding:14px;transition:opacity .15s,visibility .15s}
+.mo.open{visibility:visible;opacity:1;pointer-events:auto}
 .mb{background:var(–card);border-radius:var(–r);box-shadow:var(–shl);width:100%;max-width:940px;padding:22px;animation:su .2s ease;max-height:94vh;overflow-y:auto}
 .mb-sm{max-width:520px}.mb-md{max-width:660px}
 @keyframes su{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
@@ -769,14 +769,18 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.ms-trigger').forEach(function(t){t.classList.remove('open');});
     }
   });
-  document.querySelectorAll('.mo').forEach(function(o){
-    o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open');});
+  /* Event delegation — catches ALL modal overlays including future ones */
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('mo') && e.target.classList.contains('open')) {
+      e.target.classList.remove('open');
+    }
   });
 
   buildMonthOptions();
   loadProducts();
   showPortfolio();
   initFirebaseSync();
+  updateKeyStatus();
 });
 
 /* ═══════════════════════════════════════════════════
@@ -1614,10 +1618,7 @@ Return ONLY a JSON array, no extra text.',
   );
 }
 
-/* Call updateKeyStatus on page load */
-document.addEventListener('DOMContentLoaded', function() {
-  setTimeout(updateKeyStatus, 100);
-});
+/* updateKeyStatus called in main boot */
 
 
 /* ═══════════════════════════════════════════════════
@@ -1684,8 +1685,14 @@ function importData(event){
    HELPERS
 ═══════════════════════════════════════════════════ */
 function delRecord(id,label,reloadFn){if(!confirm('Delete this '+label+'?'))return;DB.deleteRecord(id);if(reloadFn)reloadFn();showToast('🗑️ Deleted');}
-function openModal(id){document.getElementById(id).classList.add('open');}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
+function openModal(id){
+  var el=document.getElementById(id);
+  if(el){el.classList.add('open');}
+}
+function closeModal(id){
+  var el=document.getElementById(id);
+  if(el){el.classList.remove('open');}
+}
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('show');},3200);}
 function escH(str){var d=document.createElement('div');d.appendChild(document.createTextNode(str||''));return d.innerHTML;}
 function escAttr(str){return (str||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
