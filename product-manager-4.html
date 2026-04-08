@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
@@ -19,9 +20,9 @@
 body{font-family:var(--fm);background:var(--bg);color:var(--t1);min-height:100vh;display:flex}
 
 /* SIDEBAR */
-#sidebar{width:var(--sw);min-height:100vh;background:#0B1120;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:100;border-right:1px solid rgba(255,255,255,.05)}
+#sidebar{width:var(–sw);min-height:100vh;background:#0B1120;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:100;border-right:1px solid rgba(255,255,255,.05)}
 .sb-logo{padding:16px 16px 14px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:10px}
-.sb-logo-icon{width:32px;height:32px;background:var(--blue);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.sb-logo-icon{width:32px;height:32px;background:var(–blue);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
 .sb-logo-txt{font-weight:800;font-size:15px;color:#fff;letter-spacing:-.4px}
 .sb-sec{font-size:9.5px;font-weight:700;letter-spacing:1.4px;color:#334155;text-transform:uppercase;padding:14px 16px 5px}
 .sb-item{display:flex;align-items:center;gap:9px;padding:8px 14px;border-radius:8px;margin:1px 8px;cursor:pointer;font-size:13px;font-weight:500;color:#64748B;transition:all .15s;user-select:none;overflow:hidden;white-space:nowrap}
@@ -31,67 +32,67 @@ body{font-family:var(--fm);background:var(--bg);color:var(--t1);min-height:100vh
 .sb-footer{margin-top:auto;padding:10px 8px;border-top:1px solid rgba(255,255,255,.06)}
 
 /* MAIN */
-#main{margin-left:var(--sw);flex:1;min-height:100vh;display:flex;flex-direction:column}
-#topbar{background:var(--card);border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:50}
+#main{margin-left:var(–sw);flex:1;min-height:100vh;display:flex;flex-direction:column}
+#topbar{background:var(–card);border-bottom:1px solid var(–border);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:50}
 .tb-title{font-size:15px;font-weight:700;letter-spacing:-.3px}
-.tb-sub{font-size:11px;color:var(--t3);margin-top:1px}
+.tb-sub{font-size:11px;color:var(–t3);margin-top:1px}
 .hbadge{display:flex;align-items:center;gap:7px;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:700}
 .hbadge.healthy{background:#ECFDF5;border:1px solid #6EE7B7;color:#065F46}
 .hbadge.warn{background:#FEF3C7;border:1px solid #FCD34D;color:#92400E}
 .hbadge.crit{background:#FEE2E2;border:1px solid #FCA5A5;color:#991B1B}
 .hdot{width:7px;height:7px;border-radius:50%;animation:pulse 2s infinite}
-.healthy .hdot{background:var(--green)}.warn .hdot{background:var(--amber)}.crit .hdot{background:var(--red)}
+.healthy .hdot{background:var(–green)}.warn .hdot{background:var(–amber)}.crit .hdot{background:var(–red)}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
 #page{flex:1;padding:20px;overflow-y:auto}
 
 /* TABS */
-.tab-bar{display:flex;gap:3px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:4px;margin-bottom:20px;flex-wrap:wrap}
-.tab-btn{padding:6px 13px;font-size:12.5px;font-weight:500;border-radius:9px;cursor:pointer;color:var(--t2);border:none;background:transparent;transition:all .15s;white-space:nowrap;font-family:var(--fm)}
-.tab-btn:hover{color:var(--t1);background:var(--bg)}
-.tab-btn.active{background:var(--blue);color:#fff;font-weight:600}
+.tab-bar{display:flex;gap:3px;background:var(–card);border:1px solid var(–border);border-radius:var(–r);padding:4px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{padding:6px 13px;font-size:12.5px;font-weight:500;border-radius:9px;cursor:pointer;color:var(–t2);border:none;background:transparent;transition:all .15s;white-space:nowrap;font-family:var(–fm)}
+.tab-btn:hover{color:var(–t1);background:var(–bg)}
+.tab-btn.active{background:var(–blue);color:#fff;font-weight:600}
 
 /* CARDS */
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh)}
-.card-title{font-size:11.5px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.9px;margin-bottom:10px}
+.card{background:var(–card);border:1px solid var(–border);border-radius:var(–r);padding:16px 18px;box-shadow:var(–sh)}
+.card-title{font-size:11.5px;font-weight:700;color:var(–t2);text-transform:uppercase;letter-spacing:.9px;margin-bottom:10px}
 
 /* KPI CARDS */
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-bottom:18px}
-.kc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:13px 15px;position:relative;overflow:hidden}
-.kc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r) var(--r) 0 0}
-.kc.blue::before{background:var(--blue)}.kc.green::before{background:var(--green)}.kc.amber::before{background:var(--amber)}.kc.purple::before{background:var(--purple)}.kc.red::before{background:var(--red)}.kc.teal::before{background:var(--teal)}
-.kc-lbl{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}
-.kc-val{font-size:19px;font-weight:700;color:var(--t1);font-family:var(--mono);letter-spacing:-.5px}
-.kc-sub{font-size:11px;color:var(--t3);margin-top:3px}
+.kc{background:var(–card);border:1px solid var(–border);border-radius:var(–r);padding:13px 15px;position:relative;overflow:hidden}
+.kc::before{content:’’;position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(–r) var(–r) 0 0}
+.kc.blue::before{background:var(–blue)}.kc.green::before{background:var(–green)}.kc.amber::before{background:var(–amber)}.kc.purple::before{background:var(–purple)}.kc.red::before{background:var(–red)}.kc.teal::before{background:var(–teal)}
+.kc-lbl{font-size:10px;font-weight:700;color:var(–t3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}
+.kc-val{font-size:19px;font-weight:700;color:var(–t1);font-family:var(–mono);letter-spacing:-.5px}
+.kc-sub{font-size:11px;color:var(–t3);margin-top:3px}
 
 /* CHARTS */
 .charts-grid{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:16px}
 .cw{overflow-x:auto}.ci{min-width:260px;position:relative}
 
 /* FILTER BAR */
-.filter-bar{display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:var(--r)}
-.filter-bar label{font-size:11.5px;font-weight:700;color:var(--t2);white-space:nowrap}
+.filter-bar{display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;padding:10px 14px;background:var(–card);border:1px solid var(–border);border-radius:var(–r)}
+.filter-bar label{font-size:11.5px;font-weight:700;color:var(–t2);white-space:nowrap}
 .ms-wrap{position:relative;display:inline-block}
-.ms-trigger{display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);cursor:pointer;font-size:12px;font-weight:500;color:var(--t1);min-width:130px;user-select:none;font-family:var(--fm)}
-.ms-trigger:hover,.ms-trigger.open{border-color:var(--blue-l)}
-.ms-trigger .ms-arrow{margin-left:auto;font-size:9px;color:var(--t3);transition:transform .15s}
+.ms-trigger{display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(–bg);border:1px solid var(–border);border-radius:var(–rs);cursor:pointer;font-size:12px;font-weight:500;color:var(–t1);min-width:130px;user-select:none;font-family:var(–fm)}
+.ms-trigger:hover,.ms-trigger.open{border-color:var(–blue-l)}
+.ms-trigger .ms-arrow{margin-left:auto;font-size:9px;color:var(–t3);transition:transform .15s}
 .ms-trigger.open .ms-arrow{transform:rotate(180deg)}
-.ms-dropdown{display:none;position:absolute;top:calc(100% + 4px);left:0;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);box-shadow:var(--shl);z-index:300;min-width:180px;max-height:220px;overflow-y:auto;padding:5px}
+.ms-dropdown{display:none;position:absolute;top:calc(100% + 4px);left:0;background:var(–card);border:1px solid var(–border);border-radius:var(–rs);box-shadow:var(–shl);z-index:300;min-width:180px;max-height:220px;overflow-y:auto;padding:5px}
 .ms-dropdown.open{display:block}
-.ms-option{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:12.5px;color:var(--t1);font-family:var(--fm)}
-.ms-option:hover{background:var(--bg)}
-.ms-option input[type=checkbox]{width:13px;height:13px;accent-color:var(--blue);flex-shrink:0;cursor:pointer}
-.ms-divider{height:1px;background:var(--border);margin:4px 0}
+.ms-option{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:12.5px;color:var(–t1);font-family:var(–fm)}
+.ms-option:hover{background:var(–bg)}
+.ms-option input[type=checkbox]{width:13px;height:13px;accent-color:var(–blue);flex-shrink:0;cursor:pointer}
+.ms-divider{height:1px;background:var(–border);margin:4px 0}
 .ms-action{display:flex;gap:5px;padding:5px 4px 2px}
-.ms-action button{flex:1;padding:4px 0;border:none;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--fm)}
-.ms-action .sel-all{background:var(--blue-f);color:var(--blue)}
-.ms-action .clr-all{background:#FEE2E2;color:var(--red)}
-.filter-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:var(--blue-f);border:1px solid #BFDBFE;border-radius:20px;font-size:11px;font-weight:600;color:var(--blue)}
+.ms-action button{flex:1;padding:4px 0;border:none;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(–fm)}
+.ms-action .sel-all{background:var(–blue-f);color:var(–blue)}
+.ms-action .clr-all{background:#FEE2E2;color:var(–red)}
+.filter-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:var(–blue-f);border:1px solid #BFDBFE;border-radius:20px;font-size:11px;font-weight:600;color:var(–blue)}
 
 /* TABLES */
 .tw{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:12.5px}
-thead th{background:var(--bg);padding:8px 12px;text-align:left;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid var(--border);white-space:nowrap}
-tbody td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--t1);vertical-align:middle}
+thead th{background:var(–bg);padding:8px 12px;text-align:left;font-size:10px;font-weight:700;color:var(–t3);text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid var(–border);white-space:nowrap}
+tbody td{padding:9px 12px;border-bottom:1px solid var(–border);color:var(–t1);vertical-align:middle}
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover td{background:#F8FAFC}
 
@@ -103,36 +104,36 @@ tbody tr:hover td{background:#F8FAFC}
 .badge-critical{background:#FEE2E2;color:#991B1B}.badge-watch{background:#FEF3C7;color:#92400E}.badge-low-r{background:#F0FDF4;color:#166534}
 
 /* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:var(--rs);font-size:12.5px;font-weight:600;cursor:pointer;border:none;font-family:var(--fm);transition:all .15s;white-space:nowrap}
-.btn-p{background:var(--blue);color:#fff}.btn-p:hover{background:#1D4ED8}
-.btn-g{background:transparent;color:var(--t2);border:1px solid var(--border)}.btn-g:hover{background:var(--bg)}
-.btn-d{background:#FEE2E2;color:var(--red)}.btn-d:hover{background:#FECACA}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:var(–rs);font-size:12.5px;font-weight:600;cursor:pointer;border:none;font-family:var(–fm);transition:all .15s;white-space:nowrap}
+.btn-p{background:var(–blue);color:#fff}.btn-p:hover{background:#1D4ED8}
+.btn-g{background:transparent;color:var(–t2);border:1px solid var(–border)}.btn-g:hover{background:var(–bg)}
+.btn-d{background:#FEE2E2;color:var(–red)}.btn-d:hover{background:#FECACA}
 .btn-ai{background:linear-gradient(135deg,#7C3AED,#2563EB);color:#fff}.btn-ai:hover{opacity:.9}
 .btn-sm{padding:4px 9px;font-size:11.5px}
 
 /* FORMS */
 .fg{margin-bottom:11px}
-.fl{display:block;font-size:11px;font-weight:700;color:var(--t2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
-.fi,.fs,.fta{width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:var(--fm);color:var(--t1);background:var(--card);outline:none;transition:border .15s}
-.fi:focus,.fs:focus,.fta:focus{border-color:var(--blue-l);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.fl{display:block;font-size:11px;font-weight:700;color:var(–t2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.fi,.fs,.fta{width:100%;padding:8px 11px;border:1px solid var(–border);border-radius:var(–rs);font-size:13px;font-family:var(–fm);color:var(–t1);background:var(–card);outline:none;transition:border .15s}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(–blue-l);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
 .fta{resize:vertical;min-height:66px}
 
 /* MONTHLY KPI TABLE */
 .mk-table{width:100%;border-collapse:collapse;font-size:12px}
-.mk-table th{background:var(--bg);padding:7px 8px;text-align:left;font-size:9.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;border-bottom:1px solid var(--border);min-width:85px;vertical-align:top}
-.mk-table td{padding:4px 4px;border-bottom:1px solid var(--border);vertical-align:middle}
+.mk-table th{background:var(–bg);padding:7px 8px;text-align:left;font-size:9.5px;font-weight:700;color:var(–t3);text-transform:uppercase;letter-spacing:.7px;border-bottom:1px solid var(–border);min-width:85px;vertical-align:top}
+.mk-table td{padding:4px 4px;border-bottom:1px solid var(–border);vertical-align:middle}
 .mk-table tr:last-child td{border-bottom:none}
-.mk-table .mi{width:100%;padding:5px 7px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:var(--fm);color:var(--t1);background:var(--card);outline:none}
-.mk-table .mi:focus{border-color:var(--blue-l)}
-.mk-table .month-lbl{font-weight:600;font-size:11.5px;color:var(--t2);white-space:nowrap;padding-right:6px}
-.mk-year-tab{display:inline-flex;align-items:center;padding:5px 13px;border-radius:7px;cursor:pointer;font-size:12px;font-weight:600;border:1px solid var(--border);background:var(--bg);color:var(--t2);font-family:var(--fm);transition:all .15s}
-.mk-year-tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
-.mk-year-tab:hover:not(.active){border-color:var(--blue-l)}
+.mk-table .mi{width:100%;padding:5px 7px;border:1px solid var(–border);border-radius:6px;font-size:12px;font-family:var(–fm);color:var(–t1);background:var(–card);outline:none}
+.mk-table .mi:focus{border-color:var(–blue-l)}
+.mk-table .month-lbl{font-weight:600;font-size:11.5px;color:var(–t2);white-space:nowrap;padding-right:6px}
+.mk-year-tab{display:inline-flex;align-items:center;padding:5px 13px;border-radius:7px;cursor:pointer;font-size:12px;font-weight:600;border:1px solid var(–border);background:var(–bg);color:var(–t2);font-family:var(–fm);transition:all .15s}
+.mk-year-tab.active{background:var(–blue);color:#fff;border-color:var(–blue)}
+.mk-year-tab:hover:not(.active){border-color:var(–blue-l)}
 
 /* MODAL */
 .mo{display:none;position:fixed;inset:0;background:rgba(11,17,32,.5);backdrop-filter:blur(4px);z-index:999;align-items:center;justify-content:center;padding:14px}
 .mo.open{display:flex}
-.mb{background:var(--card);border-radius:var(--r);box-shadow:var(--shl);width:100%;max-width:940px;padding:22px;animation:su .2s ease;max-height:94vh;overflow-y:auto}
+.mb{background:var(–card);border-radius:var(–r);box-shadow:var(–shl);width:100%;max-width:940px;padding:22px;animation:su .2s ease;max-height:94vh;overflow-y:auto}
 .mb-sm{max-width:520px}.mb-md{max-width:660px}
 @keyframes su{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
 .m-title{font-size:15px;font-weight:700;margin-bottom:14px}
@@ -141,18 +142,18 @@ tbody tr:hover td{background:#F8FAFC}
 .hr-wrap{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;padding:6px}
 
 /* OKR */
-.okr-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px}
-.okr-obj{font-size:13.5px;font-weight:700;color:var(--t1);margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.okr-kr{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid var(--border)}
-.okr-kr-title{font-size:12.5px;color:var(--t2);flex:1;min-width:0}
+.okr-card{background:var(–card);border:1px solid var(–border);border-radius:var(–r);padding:14px 16px;margin-bottom:10px}
+.okr-obj{font-size:13.5px;font-weight:700;color:var(–t1);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.okr-kr{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid var(–border)}
+.okr-kr-title{font-size:12.5px;color:var(–t2);flex:1;min-width:0}
 .progress-bar{height:6px;background:#F1F5F9;border-radius:3px;overflow:hidden;flex:1;min-width:70px}
 .progress-fill{height:100%;border-radius:3px;transition:width .4s ease}
-.fill-green{background:var(--green)}.fill-amber{background:var(--amber)}.fill-red{background:var(--red)}
-.okr-pct{font-size:11.5px;font-weight:700;font-family:var(--mono);width:34px;text-align:right}
+.fill-green{background:var(–green)}.fill-amber{background:var(–amber)}.fill-red{background:var(–red)}
+.okr-pct{font-size:11.5px;font-weight:700;font-family:var(–mono);width:34px;text-align:right}
 
 /* RISK ZONES */
 .risk-matrix-wrap{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:14px}
-.risk-zone{border-radius:var(--rs);padding:11px;min-height:80px}
+.risk-zone{border-radius:var(–rs);padding:11px;min-height:80px}
 .risk-zone.critical{background:#FEF2F2;border:1.5px dashed #FCA5A5}
 .risk-zone.watch{background:#FFFBEB;border:1.5px dashed #FCD34D}
 .risk-zone.low-risk{background:#F0FDF4;border:1.5px dashed #6EE7B7}
@@ -161,45 +162,45 @@ tbody tr:hover td{background:#F8FAFC}
 
 /* PORTFOLIO */
 .port-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:12px}
-.port-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
-.port-card:hover{box-shadow:0 5px 18px rgba(0,0,0,.09);transform:translateY(-1px);border-color:var(--blue-l)}
-.port-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;border-radius:var(--r) 0 0 var(--r)}
-.port-card.h-healthy::before{background:var(--green)}.port-card.h-warn::before{background:var(--amber)}.port-card.h-crit::before{background:var(--red)}
-.port-health-ring{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;font-family:var(--mono);flex-shrink:0}
-.port-health-ring.h-healthy{background:#ECFDF5;color:#065F46;border:3px solid var(--green)}
-.port-health-ring.h-warn{background:#FFFBEB;color:#92400E;border:3px solid var(--amber)}
-.port-health-ring.h-crit{background:#FEF2F2;color:#991B1B;border:3px solid var(--red)}
+.port-card{background:var(–card);border:1px solid var(–border);border-radius:var(–r);padding:14px 16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.port-card:hover{box-shadow:0 5px 18px rgba(0,0,0,.09);transform:translateY(-1px);border-color:var(–blue-l)}
+.port-card::before{content:’’;position:absolute;top:0;left:0;bottom:0;width:4px;border-radius:var(–r) 0 0 var(–r)}
+.port-card.h-healthy::before{background:var(–green)}.port-card.h-warn::before{background:var(–amber)}.port-card.h-crit::before{background:var(–red)}
+.port-health-ring{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;font-family:var(–mono);flex-shrink:0}
+.port-health-ring.h-healthy{background:#ECFDF5;color:#065F46;border:3px solid var(–green)}
+.port-health-ring.h-warn{background:#FFFBEB;color:#92400E;border:3px solid var(–amber)}
+.port-health-ring.h-crit{background:#FEF2F2;color:#991B1B;border:3px solid var(–red)}
 
 /* AI */
-.ai-bubble{background:linear-gradient(135deg,#F5F3FF,#EFF6FF);border:1px solid #DDD6FE;border-radius:var(--r);padding:14px 16px;margin-bottom:10px;position:relative}
-.ai-bubble::before{content:'🤖';position:absolute;top:-10px;left:12px;font-size:17px;background:var(--card);padding:0 4px}
-.ai-insight{font-size:13px;color:var(--t1);line-height:1.6;margin-bottom:6px}
-.ai-action{font-size:11.5px;font-weight:700;color:var(--purple);background:#F5F3FF;padding:4px 10px;border-radius:5px;display:inline-block;margin-top:3px}
-.ai-loading{display:flex;align-items:center;gap:10px;color:var(--t3);font-size:13px;padding:18px}
-.ai-dot{width:6px;height:6px;border-radius:50%;background:var(--purple);animation:aidot .8s infinite}
+.ai-bubble{background:linear-gradient(135deg,#F5F3FF,#EFF6FF);border:1px solid #DDD6FE;border-radius:var(–r);padding:14px 16px;margin-bottom:10px;position:relative}
+.ai-bubble::before{content:‘🤖’;position:absolute;top:-10px;left:12px;font-size:17px;background:var(–card);padding:0 4px}
+.ai-insight{font-size:13px;color:var(–t1);line-height:1.6;margin-bottom:6px}
+.ai-action{font-size:11.5px;font-weight:700;color:var(–purple);background:#F5F3FF;padding:4px 10px;border-radius:5px;display:inline-block;margin-top:3px}
+.ai-loading{display:flex;align-items:center;gap:10px;color:var(–t3);font-size:13px;padding:18px}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:var(–purple);animation:aidot .8s infinite}
 .ai-dot:nth-child(2){animation-delay:.15s}.ai-dot:nth-child(3){animation-delay:.3s}
 @keyframes aidot{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
 
 /* DECISION LOG */
-.dl-item{padding:12px 14px;border:1px solid var(--border);border-radius:var(--rs);margin-bottom:9px;background:var(--card);border-left:4px solid var(--blue)}
-.dl-date{font-size:10.5px;font-weight:600;color:var(--t3);font-family:var(--mono);margin-bottom:3px}
-.dl-title{font-size:13.5px;font-weight:700;color:var(--t1);margin-bottom:3px}
-.dl-body{font-size:12.5px;color:var(--t2);line-height:1.5}
-.dl-impact{margin-top:7px;font-size:11.5px;background:var(--blue-f);color:var(--blue);padding:3px 9px;border-radius:5px;display:inline-block;font-weight:600}
+.dl-item{padding:12px 14px;border:1px solid var(–border);border-radius:var(–rs);margin-bottom:9px;background:var(–card);border-left:4px solid var(–blue)}
+.dl-date{font-size:10.5px;font-weight:600;color:var(–t3);font-family:var(–mono);margin-bottom:3px}
+.dl-title{font-size:13.5px;font-weight:700;color:var(–t1);margin-bottom:3px}
+.dl-body{font-size:12.5px;color:var(–t2);line-height:1.5}
+.dl-impact{margin-top:7px;font-size:11.5px;background:var(–blue-f);color:var(–blue);padding:3px 9px;border-radius:5px;display:inline-block;font-weight:600}
 
 /* SPRINT */
-.sprint-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px}
+.sprint-card{background:var(–card);border:1px solid var(–border);border-radius:var(–r);padding:14px 16px;margin-bottom:10px}
 .sprint-progress{height:7px;background:#F1F5F9;border-radius:4px;overflow:hidden;margin:8px 0}
-.sprint-progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue),var(--teal));transition:width .5s}
-.sprint-item-tag{font-size:11px;font-weight:600;padding:3px 8px;border-radius:5px;background:var(--bg);color:var(--t2);border:1px solid var(--border);display:inline-block;margin:2px}
-.sprint-item-tag.done{background:#ECFDF5;color:var(--green);border-color:#6EE7B7}
+.sprint-progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(–blue),var(–teal));transition:width .5s}
+.sprint-item-tag{font-size:11px;font-weight:600;padding:3px 8px;border-radius:5px;background:var(–bg);color:var(–t2);border:1px solid var(–border);display:inline-block;margin:2px}
+.sprint-item-tag.done{background:#ECFDF5;color:var(–green);border-color:#6EE7B7}
 
 /* TOAST */
-#toast{position:fixed;bottom:20px;right:20px;background:#0B1120;color:#fff;padding:10px 16px;border-radius:var(--rs);font-size:13px;font-weight:500;z-index:9999;transform:translateY(60px);opacity:0;transition:all .25s ease;pointer-events:none;max-width:90vw}
+#toast{position:fixed;bottom:20px;right:20px;background:#0B1120;color:#fff;padding:10px 16px;border-radius:var(–rs);font-size:13px;font-weight:500;z-index:9999;transform:translateY(60px);opacity:0;transition:all .25s ease;pointer-events:none;max-width:90vw}
 #toast.show{transform:translateY(0);opacity:1}
 
 /* EMPTY */
-.es{text-align:center;padding:32px 16px;color:var(--t3)}
+.es{text-align:center;padding:32px 16px;color:var(–t3)}
 .es-ico{font-size:30px;margin-bottom:8px;opacity:.5}
 .es-txt{font-size:13px;font-weight:600}
 .es-sub{font-size:11.5px;margin-top:3px}
@@ -212,18 +213,20 @@ tbody tr:hover td{background:#F8FAFC}
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:3px}
 
 @media(max-width:800px){
-  :root{--sw:52px}
-  .sb-logo-txt,.sb-sec,.sb-item span{display:none}
-  .sb-item{justify-content:center;padding:10px 0}
-  .charts-grid{grid-template-columns:1fr}
-  .risk-matrix-wrap{grid-template-columns:1fr 1fr}
-  #page{padding:14px}
+:root{–sw:52px}
+.sb-logo-txt,.sb-sec,.sb-item span{display:none}
+.sb-item{justify-content:center;padding:10px 0}
+.charts-grid{grid-template-columns:1fr}
+.risk-matrix-wrap{grid-template-columns:1fr 1fr}
+#page{padding:14px}
 }
 </style>
+
 </head>
 <body>
 
 <!-- SIDEBAR -->
+
 <aside id="sidebar">
   <div class="sb-logo">
     <div class="sb-logo-icon">📊</div>
@@ -240,6 +243,7 @@ tbody tr:hover td{background:#F8FAFC}
 </aside>
 
 <!-- MAIN -->
+
 <div id="main">
   <header id="topbar">
     <div>
@@ -248,137 +252,140 @@ tbody tr:hover td{background:#F8FAFC}
     </div>
     <div style="display:flex;align-items:center;gap:10px;">
       <div class="hbadge" id="health-badge" style="display:none;"><div class="hdot"></div><span id="health-score-display">—</span></div>
+      <div id="sync-badge" style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px;background:#F1F5F9;color:var(--t3);border:1px solid var(--border);display:none;"></div>
       <div style="font-size:11px;color:var(--t3);font-family:var(--mono);" id="current-date"></div>
     </div>
   </header>
 
   <div id="page">
 
-    <!-- WELCOME -->
-    <div id="welcome-screen">
-      <div style="max-width:420px;margin:60px auto;text-align:center;">
-        <div style="font-size:44px;margin-bottom:12px;">📊</div>
-        <h2 style="font-size:20px;font-weight:800;margin-bottom:7px;">Welcome to ProPM</h2>
-        <p style="color:var(--t3);font-size:13.5px;line-height:1.65;margin-bottom:20px;">Your complete product management workspace.<br>Data is saved locally on your device — works offline, no login needed.</p>
-        <div style="display:flex;gap:9px;justify-content:center;flex-wrap:wrap;">
-          <button class="btn btn-p" onclick="showPortfolio()">🏠 Portfolio View</button>
-          <button class="btn btn-g" onclick="navigateToSettings()">⚙️ Add Product</button>
+```
+<!-- WELCOME -->
+<div id="welcome-screen">
+  <div style="max-width:420px;margin:60px auto;text-align:center;">
+    <div style="font-size:44px;margin-bottom:12px;">📊</div>
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:7px;">Welcome to ProPM</h2>
+    <p style="color:var(--t3);font-size:13.5px;line-height:1.65;margin-bottom:20px;">Your complete product management workspace.<br>Data is saved locally on your device — works offline, no login needed.</p>
+    <div style="display:flex;gap:9px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-p" onclick="showPortfolio()">🏠 Portfolio View</button>
+      <button class="btn btn-g" onclick="navigateToSettings()">⚙️ Add Product</button>
+    </div>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<div id="portfolio-screen" style="display:none;">
+  <div class="sec-hdr"><h3>🏠 Portfolio Overview</h3><div style="font-size:11.5px;color:var(--t3);" id="portfolio-summary"></div></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin-bottom:16px;" id="portfolio-kpi-row"></div>
+  <div class="port-grid" id="portfolio-grid"></div>
+  <div style="margin-top:18px;" id="portfolio-chart-section"></div>
+</div>
+
+<!-- AI SCREEN -->
+<div id="ai-screen" style="display:none;">
+  <div class="sec-hdr"><h3>🤖 AI Product Advisor</h3><button class="btn btn-ai btn-sm" onclick="runAIAnalysis()">✨ Analyse All Products</button></div>
+  <div id="ai-global-content"><div class="es"><div class="es-ico">🤖</div><div class="es-txt">Click "Analyse All Products" to get AI insights</div><div class="es-sub">Powered by Claude AI · requires internet connection</div></div></div>
+</div>
+
+<!-- PRODUCT DASHBOARD -->
+<div id="product-dashboard" style="display:none;">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('overview',this)">📈 Overview</button>
+    <button class="tab-btn" onclick="switchTab('okr',this)">🎯 OKRs</button>
+    <button class="tab-btn" onclick="switchTab('roadmap',this)">🗺️ Roadmap</button>
+    <button class="tab-btn" onclick="switchTab('sprint',this)">⚡ Sprints</button>
+    <button class="tab-btn" onclick="switchTab('issues',this)">🐛 Issues</button>
+    <button class="tab-btn" onclick="switchTab('risks',this)">⚠️ Risks</button>
+    <button class="tab-btn" onclick="switchTab('competitors',this)">🏁 Competitors</button>
+    <button class="tab-btn" onclick="switchTab('decisions',this)">📝 Decisions</button>
+    <button class="tab-btn" onclick="switchTab('matrix',this)">🎯 Matrix</button>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div id="tab-overview">
+    <div class="filter-bar">
+      <label>Period:</label>
+      <div class="ms-wrap"><div class="ms-trigger" id="year-trigger" onclick="toggleMs('year')"><span id="year-label">All Years</span><span class="ms-arrow">▼</span></div><div class="ms-dropdown" id="year-dropdown"><div class="ms-action"><button class="sel-all" onclick="msSelectAll('year')">All</button><button class="clr-all" onclick="msClearAll('year')">Clear</button></div><div class="ms-divider"></div><div id="year-options"></div></div></div>
+      <div class="ms-wrap"><div class="ms-trigger" id="month-trigger" onclick="toggleMs('month')"><span id="month-label">All Months</span><span class="ms-arrow">▼</span></div><div class="ms-dropdown" id="month-dropdown"><div class="ms-action"><button class="sel-all" onclick="msSelectAll('month')">All</button><button class="clr-all" onclick="msClearAll('month')">Clear</button></div><div class="ms-divider"></div><div id="month-options"></div></div></div>
+      <div id="filter-chips" style="display:flex;gap:5px;flex-wrap:wrap;"></div>
+      <div style="margin-left:auto;display:flex;gap:7px;">
+        <button class="btn btn-ai btn-sm" onclick="runProductAI()">🤖 AI Insights</button>
+        <button class="btn btn-g btn-sm" onclick="openKpiModal()">📅 Edit Monthly Data</button>
+      </div>
+    </div>
+    <div id="product-ai-strip" style="display:none;margin-bottom:14px;"></div>
+    <div class="kpi-grid" id="kpi-grid"></div>
+    <div class="charts-grid">
+      <div class="card"><div class="card-title">📊 Revenue &amp; CAC</div><div class="cw"><div class="ci" style="height:210px;"><canvas id="revenueChart"></canvas></div></div></div>
+      <div class="card"><div class="card-title">💚 Health Score</div><div class="hr-wrap"><canvas id="healthChart" width="145" height="145"></canvas><div style="font-size:12px;color:var(--t2);text-align:center;margin-top:3px;" id="health-explanation"></div></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="card"><div class="card-title">💎 CLV / ARPU</div><div class="cw"><div class="ci" style="height:160px;"><canvas id="clvChart"></canvas></div></div></div>
+      <div class="card"><div class="card-title">📉 Churn &amp; Retention</div><div class="cw"><div class="ci" style="height:160px;"><canvas id="churnChart"></canvas></div></div></div>
+    </div>
+  </div>
+
+  <!-- OKRs -->
+  <div id="tab-okr" style="display:none;"><div class="sec-hdr"><h3>🎯 Objectives &amp; Key Results</h3><button class="btn btn-p" onclick="openOkrModal()">+ Add Objective</button></div><div id="okr-list"><div class="es"><div class="es-ico">🎯</div><div class="es-txt">No OKRs yet</div></div></div></div>
+
+  <!-- ROADMAP -->
+  <div id="tab-roadmap" style="display:none;"><div class="sec-hdr"><h3>🗺️ Roadmap</h3><button class="btn btn-p" onclick="openRoadmapModal()">+ Add Feature</button></div><div class="card"><div class="tw"><table><thead><tr><th>#</th><th>Feature</th><th>Description</th><th>Priority</th><th>Status</th><th>Sprint</th><th>Due</th><th>Owner</th><th>Actions</th></tr></thead><tbody id="roadmap-tbody"><tr><td colspan="9"><div class="es"><div class="es-ico">🗺️</div><div class="es-txt">No items</div></div></td></tr></tbody></table></div></div></div>
+
+  <!-- SPRINTS -->
+  <div id="tab-sprint" style="display:none;"><div class="sec-hdr"><h3>⚡ Sprint Tracker</h3><button class="btn btn-p" onclick="openSprintModal()">+ New Sprint</button></div><div id="sprint-list"><div class="es"><div class="es-ico">⚡</div><div class="es-txt">No sprints yet</div></div></div></div>
+
+  <!-- ISSUES -->
+  <div id="tab-issues" style="display:none;"><div class="sec-hdr"><h3>🐛 Issues &amp; Feedback</h3><button class="btn btn-p" onclick="openIssueModal()">+ Log Issue</button></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px;" id="issue-stats-row"></div><div class="card"><div class="tw"><table><thead><tr><th>ID</th><th>Title</th><th>Category</th><th>Priority</th><th>Status</th><th>Reporter</th><th>Date</th><th>Actions</th></tr></thead><tbody id="issues-tbody"><tr><td colspan="8"><div class="es"><div class="es-ico">🐛</div><div class="es-txt">No issues</div></div></td></tr></tbody></table></div></div></div>
+
+  <!-- RISKS -->
+  <div id="tab-risks" style="display:none;"><div class="sec-hdr"><h3>⚠️ Risk Register</h3><button class="btn btn-p" onclick="openRiskModal()">+ Add Risk</button></div><div class="risk-matrix-wrap"><div class="risk-zone critical"><div class="risk-zone-title" style="color:#991B1B;">🔴 Critical</div><div id="risk-critical"></div></div><div class="risk-zone watch"><div class="risk-zone-title" style="color:#92400E;">🟡 Watch</div><div id="risk-watch"></div></div><div class="risk-zone low-risk"><div class="risk-zone-title" style="color:#166534;">🟢 Low</div><div id="risk-low"></div></div></div><div class="card"><div class="tw"><table><thead><tr><th>#</th><th>Risk</th><th>Category</th><th>Probability</th><th>Impact</th><th>Level</th><th>Mitigation</th><th>Owner</th><th>Actions</th></tr></thead><tbody id="risk-tbody"><tr><td colspan="9"><div class="es"><div class="es-ico">⚠️</div><div class="es-txt">No risks</div></div></td></tr></tbody></table></div></div></div>
+
+  <!-- COMPETITORS -->
+  <div id="tab-competitors" style="display:none;"><div class="sec-hdr"><h3>🏁 Competitor Tracking</h3><button class="btn btn-p" onclick="openCompModal()">+ Add Competitor</button></div><div class="card"><div class="tw"><table><thead><tr><th>Competitor</th><th>Positioning</th><th>Strengths</th><th>Weaknesses</th><th>Pricing</th><th>Threat</th><th>Our Advantage</th><th>Actions</th></tr></thead><tbody id="comp-tbody"><tr><td colspan="8"><div class="es"><div class="es-ico">🏁</div><div class="es-txt">No competitors</div></div></td></tr></tbody></table></div></div></div>
+
+  <!-- DECISIONS -->
+  <div id="tab-decisions" style="display:none;"><div class="sec-hdr"><h3>📝 Decision Log</h3><button class="btn btn-p" onclick="openDecisionModal()">+ Log Decision</button></div><div id="decision-list"><div class="es"><div class="es-ico">📝</div><div class="es-txt">No decisions logged</div></div></div></div>
+
+  <!-- MATRIX -->
+  <div id="tab-matrix" style="display:none;">
+    <div style="margin-bottom:12px;"><h3 style="font-size:14px;font-weight:700;margin-bottom:3px;">🎯 Priority Matrix</h3><p style="font-size:12px;color:var(--t3);">Auto-classifies open issues &amp; roadmap items by urgency × impact.</p></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div style="border-radius:var(--rs);padding:12px;background:#FEE2E2;border:1.5px dashed #EF4444;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#B91C1C;margin-bottom:7px;">🔴 Do First</div><div id="matrix-q2"></div></div>
+      <div style="border-radius:var(--rs);padding:12px;background:#FEF3C7;border:1.5px dashed #F59E0B;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#92400E;margin-bottom:7px;">🟡 Schedule</div><div id="matrix-q1"></div></div>
+      <div style="border-radius:var(--rs);padding:12px;background:#DCFCE7;border:1.5px dashed #10B981;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#065F46;margin-bottom:7px;">🟢 Delegate</div><div id="matrix-q4"></div></div>
+      <div style="border-radius:var(--rs);padding:12px;background:#F3F4F6;border:1.5px dashed #D1D5DB;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#6B7280;margin-bottom:7px;">⬜ Eliminate</div><div id="matrix-q3"></div></div>
+    </div>
+    <div style="margin-top:12px;padding:10px 14px;background:var(--blue-f);border:1px solid #BFDBFE;border-radius:var(--rs);font-size:12px;color:var(--blue);">💡 <strong>PM Tip:</strong> Always clear "Do First" before starting new features.</div>
+  </div>
+</div><!-- /dashboard -->
+
+<!-- SETTINGS -->
+<div id="settings-page" style="display:none;">
+  <h2 style="font-size:16px;font-weight:800;margin-bottom:5px;">⚙️ Settings</h2>
+  <p style="font-size:12.5px;color:var(--t3);margin-bottom:18px;">Data is saved in your browser's local storage. Works offline on any device.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;">
+    <div class="card">
+      <div class="card-title">Add New Product</div>
+      <div class="fg"><label class="fl">Product Name *</label><input class="fi" id="new-product-name" placeholder="e.g. Mobile App…"/></div>
+      <div class="fg"><label class="fl">Description</label><input class="fi" id="new-product-desc" placeholder="Short description…"/></div>
+      <div class="fg"><label class="fl">Icon Emoji</label><input class="fi" id="new-product-icon" placeholder="📦" maxlength="2" style="width:72px;"/></div>
+      <button class="btn btn-p" onclick="addProduct()">+ Create Product</button>
+    </div>
+    <div class="card">
+      <div class="card-title">All Products (<span id="products-count">0</span>)</div>
+      <div id="settings-product-list"><div class="es" style="padding:22px 0;"><div class="es-ico">📦</div><div class="es-txt">No products yet</div></div></div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+        <div style="font-size:11.5px;font-weight:700;color:var(--t2);margin-bottom:8px;">💾 Data Backup</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-g btn-sm" onclick="exportData()">⬇️ Export JSON</button>
+          <button class="btn btn-g btn-sm" onclick="document.getElementById('import-file').click()">⬆️ Import JSON</button>
+          <input type="file" id="import-file" accept=".json" style="display:none;" onchange="importData(event)"/>
         </div>
       </div>
     </div>
-
-    <!-- PORTFOLIO -->
-    <div id="portfolio-screen" style="display:none;">
-      <div class="sec-hdr"><h3>🏠 Portfolio Overview</h3><div style="font-size:11.5px;color:var(--t3);" id="portfolio-summary"></div></div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin-bottom:16px;" id="portfolio-kpi-row"></div>
-      <div class="port-grid" id="portfolio-grid"></div>
-      <div style="margin-top:18px;" id="portfolio-chart-section"></div>
-    </div>
-
-    <!-- AI SCREEN -->
-    <div id="ai-screen" style="display:none;">
-      <div class="sec-hdr"><h3>🤖 AI Product Advisor</h3><button class="btn btn-ai btn-sm" onclick="runAIAnalysis()">✨ Analyse All Products</button></div>
-      <div id="ai-global-content"><div class="es"><div class="es-ico">🤖</div><div class="es-txt">Click "Analyse All Products" to get AI insights</div><div class="es-sub">Powered by Claude AI · requires internet connection</div></div></div>
-    </div>
-
-    <!-- PRODUCT DASHBOARD -->
-    <div id="product-dashboard" style="display:none;">
-      <div class="tab-bar">
-        <button class="tab-btn active" onclick="switchTab('overview',this)">📈 Overview</button>
-        <button class="tab-btn" onclick="switchTab('okr',this)">🎯 OKRs</button>
-        <button class="tab-btn" onclick="switchTab('roadmap',this)">🗺️ Roadmap</button>
-        <button class="tab-btn" onclick="switchTab('sprint',this)">⚡ Sprints</button>
-        <button class="tab-btn" onclick="switchTab('issues',this)">🐛 Issues</button>
-        <button class="tab-btn" onclick="switchTab('risks',this)">⚠️ Risks</button>
-        <button class="tab-btn" onclick="switchTab('competitors',this)">🏁 Competitors</button>
-        <button class="tab-btn" onclick="switchTab('decisions',this)">📝 Decisions</button>
-        <button class="tab-btn" onclick="switchTab('matrix',this)">🎯 Matrix</button>
-      </div>
-
-      <!-- OVERVIEW -->
-      <div id="tab-overview">
-        <div class="filter-bar">
-          <label>Period:</label>
-          <div class="ms-wrap"><div class="ms-trigger" id="year-trigger" onclick="toggleMs('year')"><span id="year-label">All Years</span><span class="ms-arrow">▼</span></div><div class="ms-dropdown" id="year-dropdown"><div class="ms-action"><button class="sel-all" onclick="msSelectAll('year')">All</button><button class="clr-all" onclick="msClearAll('year')">Clear</button></div><div class="ms-divider"></div><div id="year-options"></div></div></div>
-          <div class="ms-wrap"><div class="ms-trigger" id="month-trigger" onclick="toggleMs('month')"><span id="month-label">All Months</span><span class="ms-arrow">▼</span></div><div class="ms-dropdown" id="month-dropdown"><div class="ms-action"><button class="sel-all" onclick="msSelectAll('month')">All</button><button class="clr-all" onclick="msClearAll('month')">Clear</button></div><div class="ms-divider"></div><div id="month-options"></div></div></div>
-          <div id="filter-chips" style="display:flex;gap:5px;flex-wrap:wrap;"></div>
-          <div style="margin-left:auto;display:flex;gap:7px;">
-            <button class="btn btn-ai btn-sm" onclick="runProductAI()">🤖 AI Insights</button>
-            <button class="btn btn-g btn-sm" onclick="openKpiModal()">📅 Edit Monthly Data</button>
-          </div>
-        </div>
-        <div id="product-ai-strip" style="display:none;margin-bottom:14px;"></div>
-        <div class="kpi-grid" id="kpi-grid"></div>
-        <div class="charts-grid">
-          <div class="card"><div class="card-title">📊 Revenue &amp; CAC</div><div class="cw"><div class="ci" style="height:210px;"><canvas id="revenueChart"></canvas></div></div></div>
-          <div class="card"><div class="card-title">💚 Health Score</div><div class="hr-wrap"><canvas id="healthChart" width="145" height="145"></canvas><div style="font-size:12px;color:var(--t2);text-align:center;margin-top:3px;" id="health-explanation"></div></div></div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          <div class="card"><div class="card-title">💎 CLV / ARPU</div><div class="cw"><div class="ci" style="height:160px;"><canvas id="clvChart"></canvas></div></div></div>
-          <div class="card"><div class="card-title">📉 Churn &amp; Retention</div><div class="cw"><div class="ci" style="height:160px;"><canvas id="churnChart"></canvas></div></div></div>
-        </div>
-      </div>
-
-      <!-- OKRs -->
-      <div id="tab-okr" style="display:none;"><div class="sec-hdr"><h3>🎯 Objectives &amp; Key Results</h3><button class="btn btn-p" onclick="openOkrModal()">+ Add Objective</button></div><div id="okr-list"><div class="es"><div class="es-ico">🎯</div><div class="es-txt">No OKRs yet</div></div></div></div>
-
-      <!-- ROADMAP -->
-      <div id="tab-roadmap" style="display:none;"><div class="sec-hdr"><h3>🗺️ Roadmap</h3><button class="btn btn-p" onclick="openRoadmapModal()">+ Add Feature</button></div><div class="card"><div class="tw"><table><thead><tr><th>#</th><th>Feature</th><th>Description</th><th>Priority</th><th>Status</th><th>Sprint</th><th>Due</th><th>Owner</th><th>Actions</th></tr></thead><tbody id="roadmap-tbody"><tr><td colspan="9"><div class="es"><div class="es-ico">🗺️</div><div class="es-txt">No items</div></div></td></tr></tbody></table></div></div></div>
-
-      <!-- SPRINTS -->
-      <div id="tab-sprint" style="display:none;"><div class="sec-hdr"><h3>⚡ Sprint Tracker</h3><button class="btn btn-p" onclick="openSprintModal()">+ New Sprint</button></div><div id="sprint-list"><div class="es"><div class="es-ico">⚡</div><div class="es-txt">No sprints yet</div></div></div></div>
-
-      <!-- ISSUES -->
-      <div id="tab-issues" style="display:none;"><div class="sec-hdr"><h3>🐛 Issues &amp; Feedback</h3><button class="btn btn-p" onclick="openIssueModal()">+ Log Issue</button></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px;" id="issue-stats-row"></div><div class="card"><div class="tw"><table><thead><tr><th>ID</th><th>Title</th><th>Category</th><th>Priority</th><th>Status</th><th>Reporter</th><th>Date</th><th>Actions</th></tr></thead><tbody id="issues-tbody"><tr><td colspan="8"><div class="es"><div class="es-ico">🐛</div><div class="es-txt">No issues</div></div></td></tr></tbody></table></div></div></div>
-
-      <!-- RISKS -->
-      <div id="tab-risks" style="display:none;"><div class="sec-hdr"><h3>⚠️ Risk Register</h3><button class="btn btn-p" onclick="openRiskModal()">+ Add Risk</button></div><div class="risk-matrix-wrap"><div class="risk-zone critical"><div class="risk-zone-title" style="color:#991B1B;">🔴 Critical</div><div id="risk-critical"></div></div><div class="risk-zone watch"><div class="risk-zone-title" style="color:#92400E;">🟡 Watch</div><div id="risk-watch"></div></div><div class="risk-zone low-risk"><div class="risk-zone-title" style="color:#166534;">🟢 Low</div><div id="risk-low"></div></div></div><div class="card"><div class="tw"><table><thead><tr><th>#</th><th>Risk</th><th>Category</th><th>Probability</th><th>Impact</th><th>Level</th><th>Mitigation</th><th>Owner</th><th>Actions</th></tr></thead><tbody id="risk-tbody"><tr><td colspan="9"><div class="es"><div class="es-ico">⚠️</div><div class="es-txt">No risks</div></div></td></tr></tbody></table></div></div></div>
-
-      <!-- COMPETITORS -->
-      <div id="tab-competitors" style="display:none;"><div class="sec-hdr"><h3>🏁 Competitor Tracking</h3><button class="btn btn-p" onclick="openCompModal()">+ Add Competitor</button></div><div class="card"><div class="tw"><table><thead><tr><th>Competitor</th><th>Positioning</th><th>Strengths</th><th>Weaknesses</th><th>Pricing</th><th>Threat</th><th>Our Advantage</th><th>Actions</th></tr></thead><tbody id="comp-tbody"><tr><td colspan="8"><div class="es"><div class="es-ico">🏁</div><div class="es-txt">No competitors</div></div></td></tr></tbody></table></div></div></div>
-
-      <!-- DECISIONS -->
-      <div id="tab-decisions" style="display:none;"><div class="sec-hdr"><h3>📝 Decision Log</h3><button class="btn btn-p" onclick="openDecisionModal()">+ Log Decision</button></div><div id="decision-list"><div class="es"><div class="es-ico">📝</div><div class="es-txt">No decisions logged</div></div></div></div>
-
-      <!-- MATRIX -->
-      <div id="tab-matrix" style="display:none;">
-        <div style="margin-bottom:12px;"><h3 style="font-size:14px;font-weight:700;margin-bottom:3px;">🎯 Priority Matrix</h3><p style="font-size:12px;color:var(--t3);">Auto-classifies open issues &amp; roadmap items by urgency × impact.</p></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <div style="border-radius:var(--rs);padding:12px;background:#FEE2E2;border:1.5px dashed #EF4444;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#B91C1C;margin-bottom:7px;">🔴 Do First</div><div id="matrix-q2"></div></div>
-          <div style="border-radius:var(--rs);padding:12px;background:#FEF3C7;border:1.5px dashed #F59E0B;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#92400E;margin-bottom:7px;">🟡 Schedule</div><div id="matrix-q1"></div></div>
-          <div style="border-radius:var(--rs);padding:12px;background:#DCFCE7;border:1.5px dashed #10B981;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#065F46;margin-bottom:7px;">🟢 Delegate</div><div id="matrix-q4"></div></div>
-          <div style="border-radius:var(--rs);padding:12px;background:#F3F4F6;border:1.5px dashed #D1D5DB;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#6B7280;margin-bottom:7px;">⬜ Eliminate</div><div id="matrix-q3"></div></div>
-        </div>
-        <div style="margin-top:12px;padding:10px 14px;background:var(--blue-f);border:1px solid #BFDBFE;border-radius:var(--rs);font-size:12px;color:var(--blue);">💡 <strong>PM Tip:</strong> Always clear "Do First" before starting new features.</div>
-      </div>
-    </div><!-- /dashboard -->
-
-    <!-- SETTINGS -->
-    <div id="settings-page" style="display:none;">
-      <h2 style="font-size:16px;font-weight:800;margin-bottom:5px;">⚙️ Settings</h2>
-      <p style="font-size:12.5px;color:var(--t3);margin-bottom:18px;">Data is saved in your browser's local storage. Works offline on any device.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;">
-        <div class="card">
-          <div class="card-title">Add New Product</div>
-          <div class="fg"><label class="fl">Product Name *</label><input class="fi" id="new-product-name" placeholder="e.g. Mobile App…"/></div>
-          <div class="fg"><label class="fl">Description</label><input class="fi" id="new-product-desc" placeholder="Short description…"/></div>
-          <div class="fg"><label class="fl">Icon Emoji</label><input class="fi" id="new-product-icon" placeholder="📦" maxlength="2" style="width:72px;"/></div>
-          <button class="btn btn-p" onclick="addProduct()">+ Create Product</button>
-        </div>
-        <div class="card">
-          <div class="card-title">All Products (<span id="products-count">0</span>)</div>
-          <div id="settings-product-list"><div class="es" style="padding:22px 0;"><div class="es-ico">📦</div><div class="es-txt">No products yet</div></div></div>
-          <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
-            <div style="font-size:11.5px;font-weight:700;color:var(--t2);margin-bottom:8px;">💾 Data Backup</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <button class="btn btn-g btn-sm" onclick="exportData()">⬇️ Export JSON</button>
-              <button class="btn btn-g btn-sm" onclick="document.getElementById('import-file').click()">⬆️ Import JSON</button>
-              <input type="file" id="import-file" accept=".json" style="display:none;" onchange="importData(event)"/>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
+</div>
+```
 
   </div><!-- /page -->
 </div><!-- /main -->
@@ -386,9 +393,11 @@ tbody tr:hover td{background:#F8FAFC}
 <!-- ═══ MODALS ═══ -->
 
 <!-- KPI Monthly -->
+
 <div class="mo" id="kpi-modal">
   <div class="mb">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+    <!-- Header row -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
       <div class="m-title" style="margin-bottom:0;">📅 Monthly KPI Data</div>
       <div style="display:flex;align-items:center;gap:6px;">
         <label style="font-size:11px;font-weight:700;color:var(--t2);">Add Year:</label>
@@ -396,121 +405,310 @@ tbody tr:hover td{background:#F8FAFC}
         <button class="btn btn-p btn-sm" onclick="addKpiYear()">+ Add</button>
       </div>
     </div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;" id="kpi-year-tabs"></div>
-    <div style="overflow-x:auto;">
-      <table class="mk-table">
-        <thead>
-          <tr>
-            <th style="min-width:95px;">Month</th>
-            <th><div style="font-weight:700;">Revenue (﷼)</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">Total income this month</div></th>
-            <th><div style="font-weight:700;">CAC (﷼)</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">Cost to acquire 1 customer</div></th>
-            <th><div style="font-weight:700;">CLV (﷼)</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">Lifetime value per customer</div></th>
-            <th><div style="font-weight:700;">ARPU (﷼)</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">Avg revenue per active user</div></th>
-            <th><div style="font-weight:700;">Active Users</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">Total active this month</div></th>
-            <th><div style="font-weight:700;">Churn %</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">% users lost · keep &lt;5%</div></th>
-            <th><div style="font-weight:700;">Retention %</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">% users who stayed active</div></th>
-            <th><div style="font-weight:700;">NPS</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">-100 to 100 · 50+ = great</div></th>
-          </tr>
-          <tr style="background:#F8FAFC;">
-            <td style="padding:5px 8px;font-size:9px;color:#94A3B8;font-style:italic;border-bottom:1px solid #E2E8F0;" colspan="9">
-              💡 <strong>CLV/CAC &gt; 3x</strong> = healthy &nbsp;·&nbsp; <strong>Churn &lt; 5%</strong> = good retention &nbsp;·&nbsp; <strong>NPS &gt; 50</strong> = customers love you
-            </td>
-          </tr>
-        </thead>
-        <tbody id="kpi-monthly-tbody"></tbody>
-      </table>
+
+```
+<!-- Year tabs -->
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;" id="kpi-year-tabs"></div>
+
+<!-- ── ANNUAL FILL PANEL ── -->
+<div style="background:linear-gradient(135deg,#EFF6FF,#F5F3FF);border:1.5px solid #C7D2FE;border-radius:var(--r);padding:14px 16px;margin-bottom:14px;">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+    <span style="font-size:15px;">⚡</span>
+    <div>
+      <div style="font-weight:700;font-size:13px;color:var(--t1);">Fill Whole Year at Once</div>
+      <div style="font-size:11.5px;color:var(--t2);">Enter annual totals — will be divided equally across all 12 months automatically.</div>
     </div>
-    <div style="display:flex;gap:8px;justify-content:space-between;margin-top:12px;align-items:center;">
-      <div style="font-size:11.5px;color:var(--t3);">💡 Empty cells default to 0. Click year tabs to switch.</div>
-      <div style="display:flex;gap:7px;"><button class="btn btn-g" onclick="closeModal('kpi-modal')">Cancel</button><button class="btn btn-p" onclick="saveMonthlyKPIs()">💾 Save</button></div>
-    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:10px;" id="annual-fill-grid">
+    <!-- Filled by JS -->
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+    <button class="btn btn-p btn-sm" onclick="distributeAnnual()" style="background:linear-gradient(135deg,#4F46E5,#2563EB);">⚡ Distribute Equally to All Months</button>
+    <button class="btn btn-g btn-sm" onclick="clearAnnualInputs()">✕ Clear</button>
+    <span style="font-size:11px;color:var(--t3);">Revenue &amp; Users = divided by 12 &nbsp;·&nbsp; Rates &amp; Scores = same value each month</span>
+  </div>
+</div>
+
+<!-- ── MONTHLY TABLE ── -->
+<div style="overflow-x:auto;">
+  <table class="mk-table">
+    <thead>
+      <tr>
+        <th style="min-width:95px;">Month</th>
+        <th><div style="font-weight:700;">Revenue (﷼)</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">Total income this month</div></th>
+        <th><div style="font-weight:700;">CAC (﷼)</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">Cost to acquire 1 customer</div></th>
+        <th><div style="font-weight:700;">CLV (﷼)</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">Lifetime value per customer</div></th>
+        <th><div style="font-weight:700;">ARPU (﷼)</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">Avg revenue per active user</div></th>
+        <th><div style="font-weight:700;">Active Users</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">Total active this month</div></th>
+        <th><div style="font-weight:700;">Churn %</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">% users lost · keep &lt;5%</div></th>
+        <th><div style="font-weight:700;">Retention %</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">% users who stayed active</div></th>
+        <th><div style="font-weight:700;">NPS</div><div style="font-size:8.5px;font-weight:400;color:#64748B;text-transform:none;letter-spacing:0;margin-top:2px;">-100 to 100 · 50+ = great</div></th>
+      </tr>
+      <tr style="background:#F8FAFC;">
+        <td style="padding:5px 8px;font-size:9px;color:#94A3B8;font-style:italic;border-bottom:1px solid #E2E8F0;" colspan="9">
+          💡 <strong>CLV/CAC &gt; 3x</strong> = healthy &nbsp;·&nbsp; <strong>Churn &lt; 5%</strong> = good retention &nbsp;·&nbsp; <strong>NPS &gt; 50</strong> = customers love you
+        </td>
+      </tr>
+    </thead>
+    <tbody id="kpi-monthly-tbody"></tbody>
+  </table>
+</div>
+<div style="display:flex;gap:8px;justify-content:space-between;margin-top:12px;align-items:center;">
+  <div style="font-size:11.5px;color:var(--t3);">💡 You can fill month-by-month or use the annual fill panel above.</div>
+  <div style="display:flex;gap:7px;"><button class="btn btn-g" onclick="closeModal('kpi-modal')">Cancel</button><button class="btn btn-p" onclick="saveMonthlyKPIs()">💾 Save All</button></div>
+</div>
+```
+
   </div>
 </div>
 
 <!-- OKR Modal -->
+
 <div class="mo" id="okr-modal"><div class="mb mb-md"><div class="m-title" id="okr-modal-title">🎯 Add Objective</div><input type="hidden" id="okr-edit-id"/><div class="fg"><label class="fl">Objective *</label><input class="fi" id="okr-obj" placeholder="e.g. Become the leading IoT platform…"/></div><div class="fg"><label class="fl">Quarter / Period</label><input class="fi" id="okr-period" placeholder="e.g. Q2 2025…"/></div><div style="margin-bottom:10px;"><label class="fl">Key Results (up to 5)</label><div id="okr-kr-inputs"></div><button class="btn btn-g btn-sm" style="margin-top:6px;" onclick="addKRInput()">+ Key Result</button></div><div style="display:flex;gap:7px;justify-content:flex-end;margin-top:12px;"><button class="btn btn-g" onclick="closeModal('okr-modal')">Cancel</button><button class="btn btn-p" onclick="saveOKR()">💾 Save</button></div></div></div>
 
 <!-- Sprint Modal -->
+
 <div class="mo" id="sprint-modal"><div class="mb mb-md"><div class="m-title" id="sprint-modal-title">⚡ New Sprint</div><input type="hidden" id="sprint-edit-id"/><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div class="fg" style="grid-column:1/-1;"><label class="fl">Sprint Name *</label><input class="fi" id="sp-name" placeholder="e.g. Sprint 12, Release 2.0…"/></div><div class="fg"><label class="fl">Start Date</label><input class="fi" id="sp-start" type="date"/></div><div class="fg"><label class="fl">End Date</label><input class="fi" id="sp-end" type="date"/></div><div class="fg"><label class="fl">Goal</label><input class="fi" id="sp-goal" placeholder="Sprint goal…"/></div><div class="fg"><label class="fl">Status</label><select class="fs" id="sp-status"><option value="Planned">📅 Planned</option><option value="Active">⚡ Active</option><option value="Done">✅ Done</option></select></div></div><div style="display:flex;gap:7px;justify-content:flex-end;margin-top:12px;"><button class="btn btn-g" onclick="closeModal('sprint-modal')">Cancel</button><button class="btn btn-p" onclick="saveSprint()">💾 Save</button></div></div></div>
 
 <!-- Roadmap Modal -->
+
 <div class="mo" id="roadmap-modal"><div class="mb mb-sm"><div class="m-title" id="roadmap-modal-title">🗺️ Add Roadmap Item</div><input type="hidden" id="roadmap-edit-id"/><div class="fg"><label class="fl">Title *</label><input class="fi" id="rm-title" placeholder="e.g. Dark Mode…"/></div><div class="fg"><label class="fl">Description</label><textarea class="fta" id="rm-desc" placeholder="What does this accomplish?"></textarea></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div class="fg"><label class="fl">Priority</label><select class="fs" id="rm-priority"><option value="High">🔴 High</option><option value="Medium" selected>🟡 Medium</option><option value="Low">🟢 Low</option></select></div><div class="fg"><label class="fl">Status</label><select class="fs" id="rm-status"><option value="Planned">📅 Planned</option><option value="Active">⚡ Active</option><option value="Done">✅ Done</option></select></div><div class="fg"><label class="fl">Sprint</label><input class="fi" id="rm-sprint" placeholder="e.g. Sprint 12…"/></div><div class="fg"><label class="fl">Due Date</label><input class="fi" id="rm-duedate" type="date"/></div><div class="fg" style="grid-column:1/-1;"><label class="fl">Owner</label><input class="fi" id="rm-owner" placeholder="e.g. Product Team"/></div></div><div style="display:flex;gap:7px;justify-content:flex-end;margin-top:10px;"><button class="btn btn-g" onclick="closeModal('roadmap-modal')">Cancel</button><button class="btn btn-p" onclick="saveRoadmapItem()">💾 Save</button></div></div></div>
 
 <!-- Issue Modal -->
+
 <div class="mo" id="issue-modal"><div class="mb mb-sm"><div class="m-title" id="issue-modal-title">🐛 Log Issue</div><input type="hidden" id="issue-edit-id"/><div class="fg"><label class="fl">Title *</label><input class="fi" id="is-title" placeholder="Short descriptive title…"/></div><div class="fg"><label class="fl">Description</label><textarea class="fta" id="is-desc" placeholder="Describe the issue…"></textarea></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div class="fg"><label class="fl">Category</label><select class="fs" id="is-category"><option value="Bug">🐛 Bug</option><option value="Feature Request">💡 Feature Request</option><option value="UX Issue">🎨 UX Issue</option><option value="Performance">⚡ Performance</option><option value="Security">🔐 Security</option><option value="Feedback">💬 Feedback</option></select></div><div class="fg"><label class="fl">Priority</label><select class="fs" id="is-priority"><option value="High">🔴 High</option><option value="Medium" selected>🟡 Medium</option><option value="Low">🟢 Low</option></select></div><div class="fg"><label class="fl">Status</label><select class="fs" id="is-status"><option value="Open">🔓 Open</option><option value="In Progress">🔄 In Progress</option><option value="Closed">✅ Closed</option></select></div><div class="fg"><label class="fl">Impact</label><select class="fs" id="is-impact"><option value="High">High Impact</option><option value="Medium" selected>Medium Impact</option><option value="Low">Low Impact</option></select></div><div class="fg"><label class="fl">Reporter</label><input class="fi" id="is-reporter" placeholder="e.g. Ahmed…"/></div><div class="fg"><label class="fl">Date</label><input class="fi" id="is-date" type="date"/></div></div><div style="display:flex;gap:7px;justify-content:flex-end;margin-top:10px;"><button class="btn btn-g" onclick="closeModal('issue-modal')">Cancel</button><button class="btn btn-p" onclick="saveIssue()">💾 Save</button></div></div></div>
 
 <!-- Risk Modal -->
+
 <div class="mo" id="risk-modal"><div class="mb mb-sm"><div class="m-title" id="risk-modal-title">⚠️ Add Risk</div><input type="hidden" id="risk-edit-id"/><div class="fg"><label class="fl">Risk Title *</label><input class="fi" id="rk-title" placeholder="e.g. Key engineer may leave…"/></div><div class="fg"><label class="fl">Description</label><textarea class="fta" id="rk-desc" placeholder="Describe the risk…"></textarea></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div class="fg"><label class="fl">Category</label><select class="fs" id="rk-category"><option value="Technical">⚙️ Technical</option><option value="Market">📊 Market</option><option value="Team">👥 Team</option><option value="Financial">💰 Financial</option><option value="Regulatory">⚖️ Regulatory</option><option value="Competitor">🏁 Competitor</option></select></div><div class="fg"><label class="fl">Probability</label><select class="fs" id="rk-prob"><option value="High">High (&gt;70%)</option><option value="Medium" selected>Medium (30-70%)</option><option value="Low">Low (&lt;30%)</option></select></div><div class="fg"><label class="fl">Impact</label><select class="fs" id="rk-impact"><option value="High">High Impact</option><option value="Medium" selected>Medium Impact</option><option value="Low">Low Impact</option></select></div><div class="fg"><label class="fl">Owner</label><input class="fi" id="rk-owner" placeholder="e.g. Tech Lead…"/></div></div><div class="fg"><label class="fl">Mitigation Plan</label><textarea class="fta" id="rk-mitigation" placeholder="How will you mitigate this?"></textarea></div><div style="display:flex;gap:7px;justify-content:flex-end;margin-top:10px;"><button class="btn btn-g" onclick="closeModal('risk-modal')">Cancel</button><button class="btn btn-p" onclick="saveRisk()">💾 Save</button></div></div></div>
 
 <!-- Competitor Modal -->
+
 <div class="mo" id="comp-modal"><div class="mb mb-md"><div class="m-title" id="comp-modal-title">🏁 Add Competitor</div><input type="hidden" id="comp-edit-id"/><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div class="fg"><label class="fl">Name *</label><input class="fi" id="cp-name" placeholder="e.g. Acme Corp…"/></div><div class="fg"><label class="fl">Threat Level</label><select class="fs" id="cp-threat"><option value="High">🔴 High</option><option value="Medium" selected>🟡 Medium</option><option value="Low">🟢 Low</option></select></div><div class="fg"><label class="fl">Market Positioning</label><input class="fi" id="cp-position" placeholder="e.g. Enterprise SaaS…"/></div><div class="fg"><label class="fl">Pricing</label><input class="fi" id="cp-pricing" placeholder="e.g. ﷼500/mo…"/></div><div class="fg" style="grid-column:1/-1;"><label class="fl">Strengths</label><textarea class="fta" id="cp-strengths" placeholder="What do they do well?"></textarea></div><div class="fg" style="grid-column:1/-1;"><label class="fl">Weaknesses</label><textarea class="fta" id="cp-weaknesses" placeholder="Where do they fall short?"></textarea></div><div class="fg" style="grid-column:1/-1;"><label class="fl">Our Competitive Advantage</label><textarea class="fta" id="cp-advantage" placeholder="How do we win?"></textarea></div></div><div style="display:flex;gap:7px;justify-content:flex-end;margin-top:10px;"><button class="btn btn-g" onclick="closeModal('comp-modal')">Cancel</button><button class="btn btn-p" onclick="saveCompetitor()">💾 Save</button></div></div></div>
 
 <!-- Decision Modal -->
+
 <div class="mo" id="decision-modal"><div class="mb mb-md"><div class="m-title" id="decision-modal-title">📝 Log Decision</div><input type="hidden" id="decision-edit-id"/><div class="fg"><label class="fl">Decision Title *</label><input class="fi" id="dc-title" placeholder="e.g. Pivot to B2B…"/></div><div class="fg"><label class="fl">Context / Problem</label><textarea class="fta" id="dc-context" placeholder="What triggered this decision?"></textarea></div><div class="fg"><label class="fl">Decision Made</label><textarea class="fta" id="dc-decision" placeholder="What exactly was decided?"></textarea></div><div class="fg"><label class="fl">Rationale</label><textarea class="fta" id="dc-rationale" placeholder="Why was this the best option?"></textarea></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div class="fg"><label class="fl">Expected Impact</label><input class="fi" id="dc-impact" placeholder="e.g. +20% retention…"/></div><div class="fg"><label class="fl">Date</label><input class="fi" id="dc-date" type="date"/></div><div class="fg"><label class="fl">Decision Maker</label><input class="fi" id="dc-owner" placeholder="e.g. Product Lead…"/></div><div class="fg"><label class="fl">Status</label><select class="fs" id="dc-status"><option value="Pending">⏳ Pending</option><option value="Implemented">✅ Implemented</option><option value="Reversed">↩️ Reversed</option></select></div></div><div style="display:flex;gap:7px;justify-content:flex-end;margin-top:10px;"><button class="btn btn-g" onclick="closeModal('decision-modal')">Cancel</button><button class="btn btn-p" onclick="saveDecision()">💾 Save</button></div></div></div>
 
 <div id="toast"></div>
 
 <!-- Chart.js from CDN (only external dependency) -->
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 
 <script>
 /* ═══════════════════════════════════════════════════
-   LOCAL STORAGE DATABASE — replaces Firebase entirely
-   Works from content://, file://, or any local URL
+   DATABASE LAYER
+   • Local file (content://, file://) → localStorage only
+   • Hosted URL (GitHub Pages, any https://) → Firebase Firestore
+     with localStorage as offline cache/fallback
 ═══════════════════════════════════════════════════ */
 var DB_KEY = 'propm_v4_data';
+var IS_HOSTED = (function(){
+  var p = window.location.protocol;
+  var h = window.location.hostname;
+  return (p === 'https:' || p === 'http:') && h !== '' && h !== 'localhost';
+})();
 
-var DB = {
+/* ── Firebase config (only used when IS_HOSTED) ── */
+var FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAQdUkL2nGR35BMjErcDwAnjnBo7Lj4hmk",
+  authDomain: "product-manager1321.firebaseapp.com",
+  projectId: "product-manager1321",
+  storageBucket: "product-manager1321.firebasestorage.app",
+  messagingSenderId: "115076112266",
+  appId: "1:115076112266:web:3e1d96b3c4480a64b7b273"
+};
+var _db = null; // Firestore instance (null when offline mode)
+var COL = "product_management";
+var _fbListeners = []; // active onSnapshot unsubs
+
+/* ── localStorage fallback engine ── */
+var LS = {
   _data: null,
   _load: function() {
     if (this._data) return this._data;
-    try {
-      var raw = localStorage.getItem(DB_KEY);
-      this._data = raw ? JSON.parse(raw) : { products:[], records:[] };
-    } catch(e) { this._data = { products:[], records:[] }; }
+    try { var r = localStorage.getItem(DB_KEY); this._data = r ? JSON.parse(r) : {products:[],records:[]}; }
+    catch(e) { this._data = {products:[],records:[]}; }
     return this._data;
   },
   _save: function() {
-    try { localStorage.setItem(DB_KEY, JSON.stringify(this._data)); } catch(e) { showToast('⚠️ Storage full — export your data!'); }
+    try { localStorage.setItem(DB_KEY, JSON.stringify(this._data)); }
+    catch(e) { showToast('⚠️ Storage full — export your data!'); }
   },
-  _uid: function() { return Date.now().toString(36) + Math.random().toString(36).substr(2,5); },
-
-  // Products
+  _uid: function() { return Date.now().toString(36) + Math.random().toString(36).substr(2,6); },
   getProducts: function() { return this._load().products || []; },
-  saveProduct: function(p) {
-    var d = this._load();
-    var idx = d.products.findIndex(function(x){return x.id===p.id;});
-    if (idx>=0) d.products[idx]=p; else d.products.push(p);
-    this._save(); return p;
-  },
-  addProduct: function(data) { data.id = this._uid(); data.createdAt = Date.now(); return this.saveProduct(data); },
-  deleteProduct: function(id) {
-    var d = this._load();
-    d.products = d.products.filter(function(p){return p.id!==id;});
-    d.records = d.records.filter(function(r){return r.productId!==id;});
-    this._save();
-  },
+  saveProduct: function(p) { var d=this._load(),i=d.products.findIndex(function(x){return x.id===p.id;}); if(i>=0)d.products[i]=p;else d.products.push(p); this._save(); return p; },
+  addProduct: function(data) { data.id=this._uid(); data.createdAt=Date.now(); return this.saveProduct(data); },
+  deleteProduct: function(id) { var d=this._load(); d.products=d.products.filter(function(p){return p.id!==id;}); d.records=d.records.filter(function(r){return r.productId!==id;}); this._save(); },
+  getRecords: function(type,pid) { return this._load().records.filter(function(r){return r.type===type&&r.productId===pid;}); },
+  saveRecord: function(r) { var d=this._load(),i=d.records.findIndex(function(x){return x.id===r.id;}); if(i>=0)d.records[i]=r;else d.records.push(r); this._save(); return r; },
+  addRecord: function(data) { data.id=this._uid(); data.createdAt=Date.now(); return this.saveRecord(data); },
+  upsertRecord: function(data) { return data.id?this.saveRecord(data):this.addRecord(data); },
+  deleteRecord: function(id) { var d=this._load(); d.records=d.records.filter(function(r){return r.id!==id;}); this._save(); },
+  exportAll: function() { return JSON.stringify(this._load(), null, 2); },
+  importAll: function(json) { this._data=JSON.parse(json); this._save(); }
+};
 
-  // Records (all other data types)
-  getRecords: function(type, productId) {
-    return this._load().records.filter(function(r){ return r.type===type && r.productId===productId; });
+/* ── DB public API (delegates to Firebase or localStorage) ── */
+var DB = {
+  _uid: function() { return LS._uid(); },
+  getProducts: function() { return LS.getProducts(); },
+  saveProduct: function(p) {
+    LS.saveProduct(p);
+    if (_db) _db.collection(COL).doc('product_'+p.id).set(Object.assign({type:'product'},p));
+    return p;
   },
+  addProduct: function(data) {
+    data.id = LS._uid(); data.createdAt = Date.now();
+    LS.saveProduct(data);
+    if (_db) _db.collection(COL).doc('product_'+data.id).set(Object.assign({type:'product'},data));
+    return data;
+  },
+  deleteProduct: function(id) {
+    LS.deleteProduct(id);
+    if (_db) {
+      _db.collection(COL).where('productId','==',id).get().then(function(snap){
+        var b=_db.batch(); snap.docs.forEach(function(d){b.delete(d.ref);}); b.delete(_db.collection(COL).doc('product_'+id)); b.commit();
+      });
+    }
+  },
+  getRecords: function(type, pid) { return LS.getRecords(type, pid); },
   saveRecord: function(r) {
-    var d = this._load();
-    var idx = d.records.findIndex(function(x){return x.id===r.id;});
-    if (idx>=0) d.records[idx]=r; else d.records.push(r);
-    this._save(); return r;
+    LS.saveRecord(r);
+    if (_db) _db.collection(COL).doc('rec_'+r.id).set(r);
+    return r;
   },
-  addRecord: function(data) { data.id = this._uid(); data.createdAt = Date.now(); return this.saveRecord(data); },
+  addRecord: function(data) {
+    data.id = LS._uid(); data.createdAt = Date.now();
+    LS.addRecord(data);
+    if (_db) _db.collection(COL).doc('rec_'+data.id).set(data);
+    return data;
+  },
   upsertRecord: function(data) { return data.id ? this.saveRecord(data) : this.addRecord(data); },
   deleteRecord: function(id) {
-    var d = this._load();
-    d.records = d.records.filter(function(r){return r.id!==id;});
-    this._save();
+    LS.deleteRecord(id);
+    if (_db) _db.collection(COL).doc('rec_'+id).delete();
   },
-  exportAll: function() { return JSON.stringify(this._load(), null, 2); },
-  importAll: function(json) { this._data = JSON.parse(json); this._save(); }
+  exportAll: function() { return LS.exportAll(); },
+  importAll: function(json) {
+    LS.importAll(json);
+    if (_db) _syncAllToFirebase();
+  }
 };
+
+/* ── Push full localStorage data to Firebase ── */
+function _syncAllToFirebase() {
+  if (!_db) return;
+  var d = LS._load();
+  var b = _db.batch();
+  d.products.forEach(function(p){ b.set(_db.collection(COL).doc('product_'+p.id), Object.assign({type:'product'},p)); });
+  d.records.forEach(function(r){ b.set(_db.collection(COL).doc('rec_'+r.id), r); });
+  b.commit().then(function(){ showToast('☁️ Synced to cloud'); });
+}
+
+/* ── Pull Firebase data into localStorage ── */
+function _pullFromFirebase(callback) {
+  if (!_db) { if(callback) callback(); return; }
+  _db.collection(COL).get().then(function(snap) {
+    var products = [], records = [];
+    snap.docs.forEach(function(d) {
+      var data = d.data();
+      if (data.type === 'product') products.push(data);
+      else if (data.type) records.push(data);
+    });
+    // Merge: Firebase wins on conflicts (it's the source of truth when hosted)
+    var local = LS._load();
+    // Build lookup maps
+    var fbPids = {}; products.forEach(function(p){ fbPids[p.id]=true; });
+    var fbRids = {}; records.forEach(function(r){ fbRids[r.id]=true; });
+    // Add local items not in Firebase
+    local.products.forEach(function(p){ if(!fbPids[p.id]) products.push(p); });
+    local.records.forEach(function(r){ if(!fbRids[r.id]) records.push(r); });
+    LS._data = { products: products, records: records };
+    LS._save();
+    if (callback) callback();
+  }).catch(function(e) {
+    console.warn('Firebase pull failed:', e);
+    if (callback) callback(); // fall back to local
+  });
+}
+
+/* ── Firebase listener: listen for changes from other devices ── */
+function _startFirebaseListener() {
+  if (!_db) return;
+  var unsub = _db.collection(COL).onSnapshot(function(snap) {
+    var changed = false;
+    snap.docChanges().forEach(function(change) {
+      var data = change.doc.data();
+      if (change.type === 'added' || change.type === 'modified') {
+        if (data.type === 'product') { LS.saveProduct(data); changed = true; }
+        else if (data.type) { LS.saveRecord(data); changed = true; }
+      } else if (change.type === 'removed') {
+        // Remove from local cache
+        var local = LS._load();
+        var id = data.id;
+        if (data.type === 'product') { local.products = local.products.filter(function(p){return p.id!==id;}); }
+        else { local.records = local.records.filter(function(r){return r.id!==id;}); }
+        LS._save(); changed = true;
+      }
+    });
+    if (changed) {
+      // Reload UI silently
+      loadProducts();
+      if (currentProductId) loadProductData();
+    }
+  }, function(e){ console.warn('Firebase listener error:', e.code); });
+  _fbListeners.push(unsub);
+}
+
+/* ── Initialize Firebase when hosted ── */
+function initFirebaseSync() {
+  if (!IS_HOSTED) {
+    console.log('ProPM: Local mode (localStorage only)');
+    return;
+  }
+  // Dynamically load Firebase SDK
+  function loadScript(url, cb) {
+    var s = document.createElement('script'); s.src = url;
+    s.onload = cb; s.onerror = function(){ console.warn('Failed to load:', url); cb(); };
+    document.head.appendChild(s);
+  }
+  loadScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js', function() {
+    loadScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js', function() {
+      try {
+        if (!window.firebase) throw new Error('Firebase SDK not available');
+        if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+        _db = firebase.firestore();
+        _db.enablePersistence({synchronizeTabs:true}).catch(function(){});
+        console.log('ProPM: Cloud sync enabled');
+        updateSyncBadge(true);
+        // Pull then start live listener
+        _pullFromFirebase(function(){
+          loadProducts();
+          if (currentProductId) loadProductData();
+          _startFirebaseListener();
+        });
+      } catch(e) {
+        console.warn('Firebase init failed:', e);
+        updateSyncBadge(false);
+      }
+    });
+  });
+}
+
+function updateSyncBadge(online) {
+  var badge = document.getElementById('sync-badge');
+  if (!badge) return;
+  badge.style.display = 'flex';
+  if (online) {
+    badge.innerHTML = '☁️ Synced';
+    badge.style.background = '#ECFDF5'; badge.style.color = '#065F46'; badge.style.border = '1px solid #6EE7B7';
+  } else {
+    badge.innerHTML = '⚠️ Cloud error';
+    badge.style.background = '#FEF3C7'; badge.style.color = '#92400E'; badge.style.border = '1px solid #FCD34D';
+  }
+}
 
 /* ═══════════════════════════════════════════════════
    CONSTANTS
@@ -550,6 +748,7 @@ document.addEventListener('DOMContentLoaded', function() {
   buildMonthOptions();
   loadProducts();
   showPortfolio();
+  initFirebaseSync();
 });
 
 /* ═══════════════════════════════════════════════════
@@ -870,6 +1069,7 @@ function renderKpiYearTabs(){
   document.getElementById('kpi-year-tabs').innerHTML=years.map(function(y){
     return '<button class="mk-year-tab '+(y===kpiModalYear?'active':'')+'" onclick="switchKpiYear(\''+y+'\')">'+y+'</button>';
   }).join('');
+  renderAnnualFillGrid();
 }
 function switchKpiYear(yr){saveKpiTableData();kpiModalYear=yr;renderKpiYearTabs();renderKpiTable();}
 function addKpiYear(){
@@ -890,6 +1090,59 @@ function renderKpiTable(){
       +KPI_FIELDS.map(function(f){var v=md[f]!=null?md[f]:'';return '<td><input class="mi" type="number" step="any" placeholder="0" data-field="'+f+'" data-month="'+mi+'" value="'+v+'"/></td>';}).join('')+'</tr>';
   }).join('');
 }
+/* ─── Annual Fill Panel ─── */
+var KPI_ANNUAL_LABELS = ['Annual Revenue (﷼)', 'CAC (﷼)', 'CLV (﷼)', 'ARPU (﷼)', 'Active Users', 'Churn %', 'Retention %', 'NPS'];
+/* Fields that should be DIVIDED by 12 (cumulative totals) */
+var KPI_DIVIDE_FIELDS = { revenue: true, users: true };
+/* Fields that should be used AS-IS per month (rates/scores) */
+// All others = copied same to each month
+
+function renderAnnualFillGrid() {
+  var grid = document.getElementById('annual-fill-grid');
+  if (!grid) return;
+  grid.innerHTML = KPI_FIELDS.map(function(f, i) {
+    var isDiv = KPI_DIVIDE_FIELDS[f];
+    return '<div style="display:flex;flex-direction:column;gap:3px;">'
+      + '<label style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;">'
+      + KPI_ANNUAL_LABELS[i]
+      + (isDiv ? ' <span style="font-size:9px;color:var(--blue);background:var(--blue-f);padding:1px 5px;border-radius:3px;">÷12</span>' : ' <span style="font-size:9px;color:#065F46;background:#ECFDF5;padding:1px 5px;border-radius:3px;">per month</span>')
+      + '</label>'
+      + '<input class="fi annual-inp" data-field="' + f + '" type="number" step="any" placeholder="0" '
+      + 'style="padding:6px 9px;font-size:12.5px;"/>'
+      + '</div>';
+  }).join('');
+}
+
+function distributeAnnual() {
+  saveKpiTableData(); // preserve any manual entries first
+  var anyFilled = false;
+  document.querySelectorAll('.annual-inp').forEach(function(inp) {
+    var v = parseFloat(inp.value);
+    if (!isNaN(v) && v !== 0) anyFilled = true;
+  });
+  if (!anyFilled) { showToast('⚠️ Enter at least one annual value first'); return; }
+
+  if (!kpiModalData[kpiModalYear]) kpiModalData[kpiModalYear] = {};
+
+  document.querySelectorAll('.annual-inp').forEach(function(inp) {
+    var f = inp.dataset.field;
+    var v = parseFloat(inp.value);
+    if (isNaN(v) || v === 0) return; // skip empty fields
+    var perMonth = KPI_DIVIDE_FIELDS[f] ? Math.round((v / 12) * 100) / 100 : v;
+    for (var mi = 0; mi < 12; mi++) {
+      if (!kpiModalData[kpiModalYear][String(mi)]) kpiModalData[kpiModalYear][String(mi)] = {};
+      kpiModalData[kpiModalYear][String(mi)][f] = perMonth;
+    }
+  });
+
+  renderKpiTable(); // refresh table to show filled values
+  showToast('✅ Annual data distributed across all 12 months');
+}
+
+function clearAnnualInputs() {
+  document.querySelectorAll('.annual-inp').forEach(function(inp) { inp.value = ''; });
+}
+
 function saveKpiTableData(){
   if(!kpiModalYear) return;
   if(!kpiModalData[kpiModalYear]) kpiModalData[kpiModalYear]={};
@@ -1142,12 +1395,23 @@ function renderPriorityMatrix(){
 function callAI(systemPrompt, userPrompt, onSuccess, onError) {
   fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
-    headers: { 'Content-Type':'application/json', 'anthropic-dangerous-direct-browser-calls':'true' },
+    headers: {
+      'Content-Type': 'application/json',
+      'anthropic-dangerous-direct-browser-calls': 'true',
+      'anthropic-version': '2023-06-01'
+    },
     body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1024, system:systemPrompt, messages:[{role:'user',content:userPrompt}] })
   })
-  .then(function(r){ if(!r.ok) return r.text().then(function(t){throw new Error('HTTP '+r.status+': '+t);}); return r.json(); })
-  .then(function(data){ onSuccess((data.content&&data.content[0])?data.content[0].text:''); })
-  .catch(function(e){ onError(e.message||String(e)); });
+  .then(function(r) {
+    if (!r.ok) return r.text().then(function(t) { throw new Error('API ' + r.status + ': ' + t.slice(0,120)); });
+    return r.json();
+  })
+  .then(function(data) {
+    var text = (data.content && data.content[0]) ? data.content[0].text : '';
+    if (!text) throw new Error('Empty response');
+    onSuccess(text);
+  })
+  .catch(function(e) { onError(e.message || String(e)); });
 }
 
 function renderAIBubbles(text, container, withProduct) {
@@ -1177,7 +1441,16 @@ function runAIAnalysis() {
     'You are an expert PM advisor. Analyse the products and give 3-5 concise, actionable insights. Return ONLY a valid JSON array: [{"insight":"...","action":"...","priority":"high|medium|low","product":"..."}]',
     'Products:\n'+summary+'\n\nReturn ONLY JSON array.',
     function(text){var ts='<div style="margin-bottom:12px;font-size:12px;color:var(--t3);">Analysis: '+products.length+' product(s) · '+new Date().toLocaleTimeString()+'</div>';cont.innerHTML=ts;renderAIBubbles(text,cont,true);cont.innerHTML=ts+cont.innerHTML;},
-    function(err){cont.innerHTML='<div style="background:#FEF2F2;border:1px solid #FCA5A5;border-radius:10px;padding:14px 16px;font-size:13px;"><div style="font-weight:700;color:#991B1B;margin-bottom:5px;">⚠️ AI connection error</div><div style="color:#7F1D1D;">'+escH(err)+'</div><div style="margin-top:8px;font-size:12px;color:var(--t3);">The AI Advisor requires an internet connection. Your data is safely saved locally.</div></div>';}
+    function(err){
+    cont.innerHTML='<div style="background:#FEF2F2;border:1px solid #FCA5A5;border-radius:10px;padding:16px 18px;font-size:13px;">'
+      +'<div style="font-weight:700;color:#991B1B;margin-bottom:6px;">⚠️ AI Advisor Unavailable</div>'
+      +'<div style="color:#7F1D1D;margin-bottom:10px;font-family:var(--mono);font-size:12px;">'+escH(err)+'</div>'
+      +'<div style="background:#fff;border-radius:8px;padding:12px 14px;font-size:12.5px;color:var(--t2);line-height:1.7;">'
+      +'<strong>Why this happens:</strong> Browsers block direct Anthropic API calls from most websites due to CORS security.<br><br>'
+      +'<strong>This app works fully without AI</strong> — all PM features (KPIs, roadmap, issues, risks etc.) work offline.<br><br>'
+      +'<strong>To enable AI:</strong> Open this file inside Claude.ai artifacts, or use a backend proxy.'
+      +'</div></div>';
+  }
   );
 }
 
@@ -1264,5 +1537,6 @@ function showToast(msg){var t=document.getElementById('toast');t.textContent=msg
 function escH(str){var d=document.createElement('div');d.appendChild(document.createTextNode(str||''));return d.innerHTML;}
 function escAttr(str){return (str||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
 </script>
+
 </body>
 </html>
