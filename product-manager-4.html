@@ -283,8 +283,36 @@ tbody tr:hover td{background:#F8FAFC}
 
 <!-- AI SCREEN -->
 <div id="ai-screen" style="display:none;">
-  <div class="sec-hdr"><h3>🤖 AI Product Advisor</h3><button class="btn btn-ai btn-sm" onclick="runAIAnalysis()">✨ Analyse All Products</button></div>
-  <div id="ai-global-content"><div class="es"><div class="es-ico">🤖</div><div class="es-txt">Click "Analyse All Products" to get AI insights</div><div class="es-sub">Powered by Claude AI · requires internet connection</div></div></div>
+  <div class="sec-hdr">
+    <h3>🤖 AI Product Advisor</h3>
+    <button class="btn btn-ai btn-sm" id="analyse-btn" onclick="runAIAnalysis()">✨ Analyse All Products</button>
+  </div>
+
+  <!-- API Key setup panel -->
+  <div id="ai-setup-panel" style="background:linear-gradient(135deg,#F5F3FF,#EFF6FF);border:1.5px solid #C7D2FE;border-radius:var(--r);padding:16px 18px;margin-bottom:16px;">
+    <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;">
+      <div style="font-size:22px;">🔑</div>
+      <div style="flex:1;min-width:200px;">
+        <div style="font-weight:700;font-size:13.5px;color:var(--t1);margin-bottom:4px;">Enter your Anthropic API Key</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:10px;line-height:1.6;">
+          Get a free key at <strong>console.anthropic.com</strong> → API Keys.<br>
+          Your key is stored only in this browser and never sent anywhere except Anthropic.
+        </div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          <input id="ai-api-key-input" type="password" placeholder="sk-ant-api03-..." 
+            style="flex:1;min-width:200px;padding:8px 11px;border:1px solid #C7D2FE;border-radius:var(--rs);font-size:13px;font-family:var(--mono);outline:none;background:#fff;"
+            onkeydown="if(event.key==='Enter')saveApiKey()"/>
+          <button class="btn btn-p btn-sm" onclick="saveApiKey()">💾 Save Key</button>
+          <button class="btn btn-g btn-sm" id="clear-key-btn" onclick="clearApiKey()" style="display:none;">✕ Clear</button>
+        </div>
+        <div id="ai-key-status" style="margin-top:6px;font-size:11.5px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ai-global-content">
+    <div class="es"><div class="es-ico">🤖</div><div class="es-txt">Save your API key above then click "Analyse All Products"</div><div class="es-sub">Powered by Claude AI · your key stays in this browser only</div></div>
+  </div>
 </div>
 
 <!-- PRODUCT DASHBOARD -->
@@ -1392,23 +1420,79 @@ function renderPriorityMatrix(){
 /* ═══════════════════════════════════════════════════
    AI ADVISOR
 ═══════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   AI ADVISOR — API Key based, works from any URL
+═══════════════════════════════════════════════════ */
+var AI_KEY_STORAGE = 'propm_anthropic_key';
+
+function getApiKey() {
+  return localStorage.getItem(AI_KEY_STORAGE) || '';
+}
+
+function saveApiKey() {
+  var inp = document.getElementById('ai-api-key-input');
+  var key = inp ? inp.value.trim() : '';
+  if (!key) { showToast('⚠️ Please paste your API key'); return; }
+  if (!key.startsWith('sk-ant-')) { showToast('⚠️ Invalid key — should start with sk-ant-'); return; }
+  localStorage.setItem(AI_KEY_STORAGE, key);
+  inp.value = '';
+  updateKeyStatus();
+  showToast('✅ API key saved — ready to analyse!');
+}
+
+function clearApiKey() {
+  localStorage.removeItem(AI_KEY_STORAGE);
+  updateKeyStatus();
+  showToast('🗑️ API key cleared');
+}
+
+function updateKeyStatus() {
+  var key = getApiKey();
+  var statusEl = document.getElementById('ai-key-status');
+  var clearBtn = document.getElementById('clear-key-btn');
+  if (!statusEl) return;
+  if (key) {
+    var masked = key.substring(0, 12) + '••••••••••••••••' + key.slice(-4);
+    statusEl.innerHTML = '<span style="color:var(--green);font-weight:600;">✅ Key saved: ' + masked + '</span>';
+    if (clearBtn) clearBtn.style.display = 'inline-flex';
+  } else {
+    statusEl.innerHTML = '<span style="color:var(--t3);">No key saved yet.</span>';
+    if (clearBtn) clearBtn.style.display = 'none';
+  }
+}
+
+/* Core fetch — uses saved API key, works from any HTTPS origin */
 function callAI(systemPrompt, userPrompt, onSuccess, onError) {
+  var key = getApiKey();
+  if (!key) {
+    onError('No API key set. Please save your Anthropic API key in the AI Advisor panel.');
+    return;
+  }
+
   fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'anthropic-dangerous-direct-browser-calls': 'true',
-      'anthropic-version': '2023-06-01'
+      'x-api-key': key,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-calls': 'true'
     },
-    body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1024, system:systemPrompt, messages:[{role:'user',content:userPrompt}] })
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1024,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userPrompt }]
+    })
   })
   .then(function(r) {
-    if (!r.ok) return r.text().then(function(t) { throw new Error('API ' + r.status + ': ' + t.slice(0,120)); });
+    if (r.status === 401) throw new Error('Invalid API key. Please check your key in the AI Advisor panel.');
+    if (r.status === 429) throw new Error('Rate limit reached. Please wait a moment and try again.');
+    if (!r.ok) return r.text().then(function(t) { throw new Error('API error ' + r.status + ': ' + t.slice(0, 100)); });
     return r.json();
   })
   .then(function(data) {
     var text = (data.content && data.content[0]) ? data.content[0].text : '';
-    if (!text) throw new Error('Empty response');
+    if (!text) throw new Error('Empty response from API');
     onSuccess(text);
   })
   .catch(function(e) { onError(e.message || String(e)); });
@@ -1416,56 +1500,125 @@ function callAI(systemPrompt, userPrompt, onSuccess, onError) {
 
 function renderAIBubbles(text, container, withProduct) {
   try {
-    var clean=text.replace(/```json|```/g,'').trim();
-    var match=clean.match(/\[[\s\S]*\]/);
-    var insights=JSON.parse(match?match[0]:clean);
-    var html='';
-    insights.forEach(function(ins){
-      var pc=ins.priority==='high'?'#FEE2E2':ins.priority==='medium'?'#FEF3C7':'#F0FDF4';
-      var tc=ins.priority==='high'?'#991B1B':ins.priority==='medium'?'#92400E':'#166534';
-      html+='<div class="ai-bubble"><div style="display:flex;align-items:center;gap:7px;margin-bottom:7px;">'
-        +(withProduct&&ins.product?'<span style="font-size:10.5px;font-weight:700;background:#F5F3FF;color:var(--purple);padding:2px 7px;border-radius:4px;">'+escH(ins.product)+'</span>':'')
-        +(ins.priority?'<span style="font-size:10.5px;font-weight:700;background:'+pc+';color:'+tc+';padding:2px 7px;border-radius:4px;text-transform:uppercase;">'+ins.priority+'</span>':'')
-        +'</div><div class="ai-insight">'+escH(ins.insight)+'</div><div class="ai-action">→ '+escH(ins.action)+'</div></div>';
+    var clean = text.replace(/```json|```/g, '').trim();
+    var match = clean.match(/\[[\s\S]*\]/);
+    var insights = JSON.parse(match ? match[0] : clean);
+    var html = '';
+    insights.forEach(function(ins) {
+      var pc = ins.priority === 'high' ? '#FEE2E2' : ins.priority === 'medium' ? '#FEF3C7' : '#F0FDF4';
+      var tc = ins.priority === 'high' ? '#991B1B' : ins.priority === 'medium' ? '#92400E' : '#166534';
+      html += '<div class="ai-bubble">'
+        + '<div style="display:flex;align-items:center;gap:7px;margin-bottom:7px;">'
+        + (withProduct && ins.product ? '<span style="font-size:10.5px;font-weight:700;background:#F5F3FF;color:var(--purple);padding:2px 7px;border-radius:4px;">' + escH(ins.product) + '</span>' : '')
+        + (ins.priority ? '<span style="font-size:10.5px;font-weight:700;background:' + pc + ';color:' + tc + ';padding:2px 7px;border-radius:4px;text-transform:uppercase;">' + ins.priority + ' priority</span>' : '')
+        + '</div>'
+        + '<div class="ai-insight">' + escH(ins.insight) + '</div>'
+        + '<div class="ai-action">→ ' + escH(ins.action) + '</div>'
+        + '</div>';
     });
-    container.innerHTML = html || '<div class="ai-bubble"><div class="ai-insight">'+escH(text)+'</div></div>';
-  } catch(e) { container.innerHTML='<div class="ai-bubble"><div class="ai-insight">'+escH(text)+'</div></div>'; }
+    container.innerHTML = html || '<div class="ai-bubble"><div class="ai-insight">' + escH(text) + '</div></div>';
+  } catch(e) {
+    container.innerHTML = '<div class="ai-bubble"><div class="ai-insight">' + escH(text) + '</div></div>';
+  }
+}
+
+function showAIError(container, err) {
+  var noKey = !getApiKey();
+  container.innerHTML = '<div style="background:#FEF2F2;border:1px solid #FCA5A5;border-radius:10px;padding:16px 18px;font-size:13px;">'
+    + '<div style="font-weight:700;color:#991B1B;margin-bottom:6px;">⚠️ ' + (noKey ? 'API Key Required' : 'AI Error') + '</div>'
+    + '<div style="color:#7F1D1D;margin-bottom:10px;font-size:12px;font-family:var(--mono);">' + escH(err) + '</div>'
+    + (noKey
+      ? '<div style="font-size:12.5px;color:var(--t2);">👆 Save your Anthropic API key in the setup panel above, then try again.<br>Get a free key at <strong>console.anthropic.com</strong></div>'
+      : '<div style="font-size:12.5px;color:var(--t2);">Check your API key is valid. All other PM features work without AI.</div>')
+    + '</div>';
 }
 
 function runAIAnalysis() {
-  var cont=document.getElementById('ai-global-content');
-  cont.innerHTML='<div class="ai-loading"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div><span>Analysing all products…</span></div>';
-  if(!products.length){cont.innerHTML='<div style="color:var(--t3);padding:16px;font-size:13px;">No products to analyse.</div>';return;}
-  var summary=products.map(function(p){var kpi=getKpiSnapshotForProduct(p.id);return p.name+': Revenue=﷼'+Math.round(kpi.revenue)+', Churn='+kpi.churn.toFixed(1)+'%, NPS='+Math.round(kpi.nps)+', Health='+computeHealth(kpi);}).join('\n');
-  callAI(
-    'You are an expert PM advisor. Analyse the products and give 3-5 concise, actionable insights. Return ONLY a valid JSON array: [{"insight":"...","action":"...","priority":"high|medium|low","product":"..."}]',
-    'Products:\n'+summary+'\n\nReturn ONLY JSON array.',
-    function(text){var ts='<div style="margin-bottom:12px;font-size:12px;color:var(--t3);">Analysis: '+products.length+' product(s) · '+new Date().toLocaleTimeString()+'</div>';cont.innerHTML=ts;renderAIBubbles(text,cont,true);cont.innerHTML=ts+cont.innerHTML;},
-    function(err){
-    cont.innerHTML='<div style="background:#FEF2F2;border:1px solid #FCA5A5;border-radius:10px;padding:16px 18px;font-size:13px;">'
-      +'<div style="font-weight:700;color:#991B1B;margin-bottom:6px;">⚠️ AI Advisor Unavailable</div>'
-      +'<div style="color:#7F1D1D;margin-bottom:10px;font-family:var(--mono);font-size:12px;">'+escH(err)+'</div>'
-      +'<div style="background:#fff;border-radius:8px;padding:12px 14px;font-size:12.5px;color:var(--t2);line-height:1.7;">'
-      +'<strong>Why this happens:</strong> Browsers block direct Anthropic API calls from most websites due to CORS security.<br><br>'
-      +'<strong>This app works fully without AI</strong> — all PM features (KPIs, roadmap, issues, risks etc.) work offline.<br><br>'
-      +'<strong>To enable AI:</strong> Open this file inside Claude.ai artifacts, or use a backend proxy.'
-      +'</div></div>';
+  var cont = document.getElementById('ai-global-content');
+  if (!products.length) {
+    cont.innerHTML = '<div style="color:var(--t3);padding:16px;font-size:13px;">No products to analyse. Add a product first.</div>';
+    return;
   }
+  cont.innerHTML = '<div class="ai-loading"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div><span>Analysing all products…</span></div>';
+
+  var summary = products.map(function(p) {
+    var kpi = getKpiSnapshotForProduct(p.id);
+    var issues = DB.getRecords('issue', p.id);
+    var risks = DB.getRecords('risk', p.id);
+    var roadmap = DB.getRecords('roadmap', p.id);
+    return p.name
+      + ': Revenue=SAR ' + Math.round(kpi.revenue)
+      + ', CAC=SAR ' + Math.round(kpi.cac)
+      + ', CLV=SAR ' + Math.round(kpi.clv)
+      + ', CLV/CAC=' + (kpi.cac > 0 ? (kpi.clv / kpi.cac).toFixed(1) : 'N/A') + 'x'
+      + ', Churn=' + kpi.churn.toFixed(1) + '%'
+      + ', NPS=' + Math.round(kpi.nps)
+      + ', Health=' + computeHealth(kpi) + '/100'
+      + ', OpenIssues=' + issues.filter(function(i){return i.status==='Open';}).length
+      + ', CriticalRisks=' + risks.filter(function(r){return r.level==='Critical';}).length
+      + ', PlannedFeatures=' + roadmap.filter(function(r){return r.status==='Planned';}).length;
+  }).join('
+');
+
+  callAI(
+    'You are an expert Product Manager advisor. Analyse the products data and give 3-5 concise, sharp, actionable insights. Focus on the most critical issues and opportunities. Return ONLY a valid JSON array with no extra text: [{"insight":"...","action":"concrete next step...","priority":"high|medium|low","product":"product name"}]',
+    'Product data:
+' + summary + '
+
+Return ONLY a JSON array.',
+    function(text) {
+      var ts = '<div style="margin-bottom:12px;font-size:12px;color:var(--t3);">Analysed ' + products.length + ' product(s) · ' + new Date().toLocaleTimeString() + '</div>';
+      var dummy = document.createElement('div');
+      renderAIBubbles(text, dummy, true);
+      cont.innerHTML = ts + dummy.innerHTML;
+    },
+    function(err) { showAIError(cont, err); }
   );
 }
 
 function runProductAI() {
-  var strip=document.getElementById('product-ai-strip');
-  strip.style.display='block';
-  strip.innerHTML='<div class="ai-loading"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div><span>Analysing…</span></div>';
-  var kpi=getFilteredKPIs();
-  var pName=(products.find(function(p){return p.id===currentProductId;})||{}).name||'Unknown';
-  var prompt='Product: '+pName+'\nRevenue: ﷼'+Math.round(kpi.revenue)+', CAC: ﷼'+Math.round(kpi.cac)+', CLV: ﷼'+Math.round(kpi.clv)+', Ratio: '+(kpi.cac>0?(kpi.clv/kpi.cac).toFixed(1):'N/A')+'x, Churn: '+kpi.churn.toFixed(1)+'%, Retention: '+kpi.retention.toFixed(1)+'%, NPS: '+Math.round(kpi.nps)+', Users: '+Math.round(kpi.users)+'\nOpen issues: '+issuesData.filter(function(i){return i.status==='Open';}).length+', Critical risks: '+riskData.filter(function(r){return r.level==='Critical';}).length+', Planned features: '+roadmapItems.filter(function(r){return r.status==='Planned';}).length;
-  callAI('You are a concise PM advisor. Give 2-3 sharp insights. Return ONLY JSON: [{"insight":"...","action":"..."}]',prompt+'\n\nReturn ONLY JSON array.',
-    function(text){renderAIBubbles(text,strip,false);},
-    function(){strip.style.display='none';}
+  var strip = document.getElementById('product-ai-strip');
+  strip.style.display = 'block';
+  strip.innerHTML = '<div class="ai-loading"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div><span>Analysing product data…</span></div>';
+
+  var kpi = getFilteredKPIs();
+  var p = products.find(function(p) { return p.id === currentProductId; }) || {};
+  var prompt = 'Product: ' + (p.name || 'Unknown')
+    + '
+Revenue: SAR ' + Math.round(kpi.revenue)
+    + ', CAC: SAR ' + Math.round(kpi.cac)
+    + ', CLV: SAR ' + Math.round(kpi.clv)
+    + ', CLV/CAC: ' + (kpi.cac > 0 ? (kpi.clv / kpi.cac).toFixed(1) : 'N/A') + 'x'
+    + ', Churn: ' + kpi.churn.toFixed(1) + '%'
+    + ', Retention: ' + kpi.retention.toFixed(1) + '%'
+    + ', NPS: ' + Math.round(kpi.nps)
+    + ', Users: ' + Math.round(kpi.users)
+    + '
+Open issues: ' + issuesData.filter(function(i){return i.status==='Open';}).length
+    + ', Critical risks: ' + riskData.filter(function(r){return r.level==='Critical';}).length
+    + ', Planned features: ' + roadmapItems.filter(function(r){return r.status==='Planned';}).length
+    + ', OKRs: ' + okrData.length
+    + ', Competitors tracked: ' + compData.length;
+
+  callAI(
+    'You are a sharp PM advisor. Analyse this product data and give 2-3 specific, data-driven insights. Be direct and reference the actual numbers. Return ONLY a valid JSON array: [{"insight":"...","action":"..."}]',
+    prompt + '
+
+Return ONLY a JSON array, no extra text.',
+    function(text) { renderAIBubbles(text, strip, false); },
+    function(err) {
+      strip.innerHTML = '<div style="font-size:12.5px;color:var(--red);padding:8px 12px;background:#FEF2F2;border-radius:8px;">'
+        + '⚠️ ' + escH(err) + ' — <span onclick="showAIScreen()" style="cursor:pointer;text-decoration:underline;color:var(--blue);">Set API key in AI Advisor</span>'
+        + '</div>';
+    }
   );
 }
+
+/* Call updateKeyStatus on page load */
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(updateKeyStatus, 100);
+});
+
 
 /* ═══════════════════════════════════════════════════
    SETTINGS / PRODUCTS
